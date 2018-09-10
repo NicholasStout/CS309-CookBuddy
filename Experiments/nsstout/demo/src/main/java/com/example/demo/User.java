@@ -1,3 +1,5 @@
+//Followed this tutorial https://spring.io/guides/gs/accessing-data-mysql/
+
 package com.example.demo;
 
 import java.util.List;
