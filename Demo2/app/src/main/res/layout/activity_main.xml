@@ -1,58 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="1dp"
+    android:paddingTop="16dp"
+    android:orientation="horizontal">
 
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp">
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/recipeTags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:hint="Recipe Tags" />
+
+                <Button
+                    android:id="@+id/enterInfo"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1dp"
+                    android:layout_marginBottom="100dp"
+                    android:layout_gravity="center"
+                    android:text="Submit" />
+
+                <Button
+                    android:id="@+id/testRecipeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Test Recipe Name" />
+
+                <Button
+                    android:id="@+id/testRecipeIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Test Recipe Ingredients" />
+
+                <Button
+                    android:id="@+id/testRecipeTags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Test Recipe Tags" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/recipeIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Recipe Ingredients"
+                android:layout_marginBottom="20dp"/>
+        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/recipeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter recipe name"
-            android:id="@+id/recipeName"/>
+            android:hint="Recipe Name"
+            android:layout_marginBottom="20dp"/>
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="133dp">
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="152dp"
-            android:hint="Enter recipe ingredients"
-            android:id="@+id/recipeIngredients"/>
-    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="162dp"
+        android:layout_height="241dp"
+        android:layout_weight="1"
+        android:text="Button" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="217dp">
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:hint="Enter tags"
-            android:id="@+id/recipeTags"/>
-    </android.support.design.widget.TextInputLayout>
-</RelativeLayout>
+</LinearLayout>
