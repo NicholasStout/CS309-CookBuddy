@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-@table()
 public class User {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -28,5 +27,9 @@ public class User {
 	
 	public Integer getID() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
