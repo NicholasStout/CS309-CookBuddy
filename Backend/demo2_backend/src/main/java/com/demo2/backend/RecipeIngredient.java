@@ -18,7 +18,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="Ingredients")
 public class RecipeIngredient {
 	
@@ -32,11 +35,6 @@ public class RecipeIngredient {
     @JoinColumn(name = "recipe_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private Recipe recipe;
-	
-	public RecipeIngredient (String n, Recipe r) {
-		name = n;
-		recipe = r;
-	}
 	
 	public void setName (String n) {
 		name = n;

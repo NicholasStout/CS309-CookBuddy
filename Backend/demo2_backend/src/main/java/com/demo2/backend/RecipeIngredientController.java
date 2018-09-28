@@ -1,11 +1,13 @@
 package com.demo2.backend;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,7 +15,6 @@ import com.demo2.backend.User;
 import com.demo2.backend.UserRepository;
 
 @Controller
-@RequestMapping(path="/{recipe_id}/recipes")
 public class RecipeIngredientController {
 	@Autowired
 	private RecipeIngredientRepository RI_Repo;
@@ -21,26 +22,27 @@ public class RecipeIngredientController {
 	@Autowired
 	private RecipeRepository R_Repo;
 	
-	@GetMapping(path="/add")
-	public @ResponseBody String addNewIngredient (@RequestParam String name) {
-		RecipeIngreient n = new User();
+	@GetMapping(path="/recipes/{recipe_id}/add")
+	public @ResponseBody String addNewIngredient (@PathVariable (value = "recipe_id") int recipeID, @RequestParam String name) {
+		Optional<Recipe> r = R_Repo.findById(recipeID);
+		RecipeIngredient n = new RecipeIngredient();
 		n.setName(name);
-		RRepo.save(n);
-		return n.getID().toString();
+		n.setRecipe(r.get());
+		RI_Repo.save(n);
+		return n.getId().toString();
 	}
 	
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<User> getAllRecipes() {
+	@GetMapping(path="/recipes/{recipe_id}/all")
+	public @ResponseBody List<RecipeIngredient> getAllRecipes(@PathVariable (value="recipe_id") int recipe_id) {
 		// This returns a JSON or XML with the users
-		return RRepo.findAll();
+		return RI_Repo.findByRecipeId(recipe_id);
 	}
 	
-	@GetMapping(path="/get_by_id")
+	@GetMapping(path="/recipes/{recipe_id}/get_by_id")
 	public @ResponseBody String get_by_id (@RequestParam String id) {
 		int i = Integer.parseInt(id);
-		Optional<User> u = RRepo.findById(i);
+		Optional<RecipeIngredient> u = RI_Repo.findById(i);
 		return u.get().getName();
 	}
-	
 	
 }

@@ -10,5 +10,5 @@ import com.demo2.backend.RecipeIngredient;
 // CRUD refers Create, Read, Update, Delete
 
 public interface RecipeIngredientRepository extends CrudRepository<RecipeIngredient, Integer> {
-	List<RecipeIngredient> findByRecipeId(Long RecipeId);
+	List<RecipeIngredient> findByRecipeId(int RecipeId);
 }
