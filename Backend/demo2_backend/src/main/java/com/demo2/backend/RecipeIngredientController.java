@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.demo2.backend.User;
-import com.demo2.backend.UserRepository;
-
 @Controller
 public class RecipeIngredientController {
 	@Autowired
@@ -33,9 +30,10 @@ public class RecipeIngredientController {
 	}
 	
 	@GetMapping(path="/recipes/{recipe_id}/all")
-	public @ResponseBody List<RecipeIngredient> getAllRecipes(@PathVariable (value="recipe_id") int recipe_id) {
+	public @ResponseBody Iterable<RecipeIngredient> getAllIngredients(@PathVariable (value="recipe_id") int recipe_id) {
 		// This returns a JSON or XML with the users
 		return RI_Repo.findByRecipeId(recipe_id);
+		//return RI_Repo.findAll();
 	}
 	
 	@GetMapping(path="/recipes/{recipe_id}/get_by_id")
