@@ -30,12 +30,11 @@
         android:text="Ingredients:"
         android:textSize="24sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/receivedIngredients"
         android:layout_width="match_parent"
         android:layout_height="154dp"
         android:ems="10"
-        android:inputType="textMultiLine"
         android:text="ingredients" />
 
     <TextView
