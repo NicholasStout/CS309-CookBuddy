@@ -21,14 +21,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="recipe name"
+        android:hint="Enter Name"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recipe Ingredients:"
+        android:hint="Recipe Ingredients:"
         android:textSize="24sp" />
 
     <EditText
@@ -37,7 +37,7 @@
         android:layout_height="207dp"
         android:ems="10"
         android:inputType="text"
-        android:text="ingredients" />
+        android:hint="Enter Ingredients" />
 
     <TextView
         android:id="@+id/textView3"
@@ -52,7 +52,7 @@
         android:layout_height="76dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Tags" />
+        android:hint="Enter Tags" />
 
     <Button
         android:id="@+id/buttonSubmitRecipe"
