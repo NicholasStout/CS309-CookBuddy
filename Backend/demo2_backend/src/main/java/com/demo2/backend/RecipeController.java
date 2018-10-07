@@ -19,9 +19,9 @@ public class RecipeController {
 	private RecipeRepository RRepo;
 	
 	@GetMapping(path="/add")
-	public @ResponseBody String addNewRecipe (@RequestParam String name) {
+	public @ResponseBody String addNewRecipe (@RequestParam String recipeName) {
 		Recipe n = new Recipe();
-		n.setName(name);
+		n.setName(recipeName);
 		RRepo.save(n);
 		return n.getId().toString();
 	}

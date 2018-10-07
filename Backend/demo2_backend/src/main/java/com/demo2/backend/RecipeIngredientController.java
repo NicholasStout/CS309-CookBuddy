@@ -20,10 +20,10 @@ public class RecipeIngredientController {
 	private RecipeRepository R_Repo;
 	
 	@GetMapping(path="/recipes/{recipe_id}/add")
-	public @ResponseBody String addNewIngredient (@PathVariable (value = "recipe_id") int recipeID, @RequestParam String name) {
+	public @ResponseBody String addNewIngredient (@PathVariable (value = "recipe_id") int recipeID, @RequestParam String ingredientName) {
 		Optional<Recipe> r = R_Repo.findById(recipeID);
 		RecipeIngredient n = new RecipeIngredient();
-		n.setName(name);
+		n.setName(ingredientName);
 		n.setRecipe(r.get());
 		RI_Repo.save(n);
 		return n.getId().toString();
