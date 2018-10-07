@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     EditText rName, rIngredients, rTags;
 
     // The url for the server
-    static final String SERVER_URL = "";
+    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/";
 
     // Alert Dialog
     AlertDialog.Builder builder;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     recipeIngredients = rIngredients.getText().toString();
                     recipeTags = rTags.getText().toString();
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, SERVER_URL,
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, SERVER_URL+"add?recipeName="+recipeName,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -79,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(MainActivity.this, "Error...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error:", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
+                        rTags.setText(error.toString());
                     }
                 }){
                     @Override
@@ -88,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("recipeName", recipeName);
                         params.put("recipeIngredients", recipeIngredients);
-                        params.put("recipeTags", recipeTags);
+                        //params.put("recipeTags", recipeTags);
                         return params;
                     }
                 };
-                AppController.getInstance(MainActivity.this).addToRequestQueue(stringRequest);
+                AppController.getInstance().addToRequestQueue(stringRequest);
             }
         });
 

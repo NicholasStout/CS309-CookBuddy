@@ -52,7 +52,7 @@ public class ReceiveRecipes extends AppCompatActivity {
     }
 
     private void makeStringRequest(){
-        StringRequest strReq = new StringRequest(Request.Method.GET, Const.URL_STRING_REQ, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.GET, "http://proj309-sb-02.misc.iastate.edu:8080/recipes//all", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
