@@ -36,7 +36,7 @@
                     android:id="@+id/enterInfo"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1dp"
+                    android:layout_weight="1"
                     android:layout_marginBottom="100dp"
                     android:layout_gravity="center"
                     android:text="Submit" />
@@ -45,7 +45,7 @@
                     android:id="@+id/testRecipeName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1dp"
+                    android:layout_weight="1"
                     android:layout_marginBottom="10dp"
                     android:text="Test Recipe Name" />
 
@@ -53,7 +53,7 @@
                     android:id="@+id/testRecipeIngredients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1dp"
+                    android:layout_weight="1"
                     android:layout_marginBottom="10dp"
                     android:text="Test Recipe Ingredients" />
 
@@ -61,7 +61,7 @@
                     android:id="@+id/testRecipeTags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1dp"
+                    android:layout_weight="1"
                     android:layout_marginBottom="10dp"
                     android:text="Test Recipe Tags" />
             </android.support.design.widget.TextInputLayout>

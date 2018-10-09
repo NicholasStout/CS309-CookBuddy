@@ -38,4 +38,11 @@ public class AppController {
 		Optional<User> u = uRepo.findById(i);
 		return u.get().getName();
 	}
+	
+	@GetMapping(path="/remove_by_id")
+	public @ResponseBody String remove_by_id (@RequestParam String id) {
+		int i = Integer.parseInt(id);
+		uRepo.deleteById(i);
+		return "deletion successful";
+	}
 }

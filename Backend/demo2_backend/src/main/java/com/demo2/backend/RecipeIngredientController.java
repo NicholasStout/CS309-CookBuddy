@@ -43,4 +43,11 @@ public class RecipeIngredientController {
 		return u.get().getName();
 	}
 	
+	@GetMapping(path="/recipes/{recipe_id}/remove_by_id")
+	public @ResponseBody String remove_by_id (@RequestParam String id) {
+		int i = Integer.parseInt(id);
+		RI_Repo.deleteById(i);
+		return "deletion successful";
+	}
+	
 }

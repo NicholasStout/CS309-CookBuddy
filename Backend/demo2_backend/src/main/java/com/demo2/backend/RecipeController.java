@@ -39,5 +39,11 @@ public class RecipeController {
 		return u.get().getName();
 	}
 	
+	@GetMapping(path="/remove_by_id{id}")
+	public @ResponseBody String deleteRecipe(@RequestParam String id) {
+		int n = Integer.parseInt(id);
+		RRepo.deleteById(n);
+		return "removal successful";
+	}
 	
 }
