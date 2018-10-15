@@ -1,4 +1,4 @@
-package com.example.primaryfolder.cookbuddy.net_utils;
+package com.example.primaryfolder.cookbuddy;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

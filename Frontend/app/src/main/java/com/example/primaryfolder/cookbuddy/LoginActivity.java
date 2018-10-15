@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.primaryfolder.cookbuddy.app.AppController;
-import com.example.primaryfolder.cookbuddy.net_utils.HomeActivity;
+import com.example.primaryfolder.cookbuddy.HomeActivity;
 
 import java.io.StringReader;
 import java.util.HashMap;
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 AppController.getInstance().addToRequestQueue(stringRequest);
 
-                // Takes you to the home page once the registration is complete
+                // Takes user to home activity
                 Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(i);
             }
