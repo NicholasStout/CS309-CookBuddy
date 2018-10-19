@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,12 +20,9 @@ public class AppController {
 	@Autowired
 	private UserRepository uRepo;
 	
-	@GetMapping(path="/add")
-	public @ResponseBody String addNewUser (@RequestParam String name) {
-		User n = new User();
-		n.setName(name);
-		uRepo.save(n);
-		return n.getID().toString();
+	@PostMapping(path="/add", consumes = "application/json")
+	public @ResponseBody int addNewUser (@RequestBody User user) {
+		return user.getID();
 	}
 	
 	@GetMapping(path="/all")
