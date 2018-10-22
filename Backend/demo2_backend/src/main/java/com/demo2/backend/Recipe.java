@@ -18,7 +18,7 @@ public class Recipe {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;	
+    private int id;	
 	private String recipeName;
 	
 	
@@ -30,7 +30,7 @@ public class Recipe {
 		return recipeName;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	
