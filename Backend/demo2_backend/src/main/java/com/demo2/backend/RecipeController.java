@@ -20,6 +20,7 @@ import com.demo2.backend.UserRepository;
 public class RecipeController {
 	@Autowired
 	private RecipeRepository RRepo;
+	@Autowired
 	private UserRepository URepo;
 	
 	@PostMapping(path= "/{user_id}/add", consumes = "application/json")
