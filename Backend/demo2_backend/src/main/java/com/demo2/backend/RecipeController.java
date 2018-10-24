@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +20,18 @@ import com.demo2.backend.UserRepository;
 public class RecipeController {
 	@Autowired
 	private RecipeRepository RRepo;
+	private UserRepository URepo;
 	
-	@PostMapping(path= "/add", consumes = "application/json")
-	public @ResponseBody int addNewRecipe (@RequestBody Recipe recipe) {
-	return recipe.getId();
+	@PostMapping(path= "/{user_id}/add", consumes = "application/json")
+	public @ResponseBody int addNewRecipe (@PathVariable (value = "user_id") int userID, @RequestBody Recipe recipe) {
+		Optional<User> u = URepo.findById(userID);
+		recipe.setUser(u.get());
+		return recipe.getId();
+	}
+	
+	@GetMapping(path="/{user_id}/all")
+	public @ResponseBody Iterable<Recipe> getRecipesByUserId(@PathVariable (value = "user_id") int userID) {
+		return RRepo.findByUserId(userID);
 	}
 	
 	@GetMapping(path="/all")

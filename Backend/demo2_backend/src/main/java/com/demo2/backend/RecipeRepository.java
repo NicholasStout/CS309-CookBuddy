@@ -9,5 +9,6 @@ import com.demo2.backend.Recipe;
 // CRUD refers Create, Read, Update, Delete
 
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
+	Iterable<Recipe> findByUserId(int userId);
 
 }
