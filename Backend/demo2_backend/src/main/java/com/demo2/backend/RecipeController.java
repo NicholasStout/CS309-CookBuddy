@@ -26,6 +26,7 @@ public class RecipeController {
 	public @ResponseBody int addNewRecipe (@PathVariable (value = "user_id") int userID, @RequestBody Recipe recipe) {
 		Optional<User> u = URepo.findById(userID);
 		recipe.setUser(u.get());
+		RRepo.save(recipe);
 		return recipe.getId();
 	}
 	
