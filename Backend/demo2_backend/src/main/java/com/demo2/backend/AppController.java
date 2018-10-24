@@ -22,6 +22,7 @@ public class AppController {
 	
 	@PostMapping(path="/add", consumes = "application/json")
 	public @ResponseBody int addNewUser (@RequestBody User user) {
+		uRepo.save(user);
 		return user.getID();
 	}
 	

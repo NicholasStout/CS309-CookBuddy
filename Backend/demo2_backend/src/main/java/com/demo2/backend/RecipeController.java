@@ -22,6 +22,7 @@ public class RecipeController {
 	
 	@PostMapping(path= "/add", consumes = "application/json")
 	public @ResponseBody int addNewRecipe (@RequestBody Recipe recipe) {
+	RRepo.save(recipe);
 	return recipe.getId();
 	}
 	
