@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:theme="@style/CookbuddyTheme"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterUser">
 
     <!-- Cookbuddy Logo -->
     <ImageView
@@ -21,7 +21,7 @@
 
     <!-- The name of the user -->
     <EditText
-        android:id="@+id/Name"
+        android:id="@+id/userName"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
 
     <!-- The email address of the user -->
     <EditText
-        android:id="@+id/EmailAddress"
+        android:id="@+id/userEmail"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
 
     <!-- The password of the user -->
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/userPassword"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
 
     <!-- Confirm the password of the user -->
     <EditText
-        android:id="@+id/ConfirmPassword"
+        android:id="@+id/userPasswordConfirm"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
 
     <!-- The form submit button for a new user -->
     <Button
-        android:id="@+id/Register"
+        android:id="@+id/submitInfo"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 
     <!-- Redirects to existing user sign in page -->
     <Button
-        android:id="@+id/SignIn"
+        android:id="@+id/SignInPage"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

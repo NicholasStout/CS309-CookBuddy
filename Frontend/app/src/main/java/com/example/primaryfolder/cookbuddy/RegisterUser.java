@@ -16,13 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.primaryfolder.cookbuddy.app.AppController;
-import com.example.primaryfolder.cookbuddy.HomeActivity;
 
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterUser extends AppCompatActivity {
 
     // Variables for buttons on the login screen
     Button btnRegister, btnSignIn;
@@ -40,23 +38,23 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register_user);
 
         // Initialize variables
-        btnRegister = (Button) findViewById(R.id.Register);
-        btnSignIn = (Button) findViewById(R.id.SignIn); // Takes user to another page to sign in with existing credentials
+        btnRegister = (Button) findViewById(R.id.submitInfo);
+        btnSignIn = (Button) findViewById(R.id.SignInPage); // Takes user to another page to sign in with existing credentials
 
-        uName = (EditText) findViewById(R.id.Name);
-        uEmail = (EditText) findViewById(R.id.EmailAddress);
-        uPassword = (EditText) findViewById(R.id.Password);
-        uPasswordConfirm = (EditText) findViewById(R.id.ConfirmPassword);
-        builder = new AlertDialog.Builder(LoginActivity.this);
+        uName = (EditText) findViewById(R.id.userName);
+        uEmail = (EditText) findViewById(R.id.userEmail);
+        uPassword = (EditText) findViewById(R.id.userPassword);
+        uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm);
+        builder = new AlertDialog.Builder(RegisterUser.this);
 
         // The 'sign in' button takes you to another page
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SignInActivity.class);
+                Intent i = new Intent(RegisterUser.this, SignInActivity.class);
                 startActivity(i);
             }
         });
@@ -94,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(LoginActivity.this, "Error:", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterUser.this, "Error:", Toast.LENGTH_SHORT).show();
                                 error.printStackTrace();
                                 uPassword.setText(error.toString());
                             }
@@ -115,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 AppController.getInstance().addToRequestQueue(stringRequest);
 
                 // Takes user to home activity
-                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent i = new Intent(RegisterUser.this, HomeActivity.class);
                 startActivity(i);
             }
         });
