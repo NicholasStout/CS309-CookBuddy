@@ -26,6 +26,26 @@ public class AppController {
 		return user.getID();
 	}
 	
+	@PostMapping(path="/sign_in", consumes = "application/json")
+	public @ResponseBody User signIn (@RequestBody User user) {
+		Iterable<User>iter = uRepo.findAll();
+		boolean found = false;
+		User tmp;
+		for (User u : iter) {
+			if ((u.getName().equals(user.getName()) || u.getEmail().equals(user.getEmail())) && (u.getPassword().equals(user.getPassword()))) {
+				found = true;
+				user = u;
+				break;
+			}
+		}
+		if (found)
+			return user;
+		else
+			tmp = new User();
+			tmp.setName("No sign in");
+			return tmp;
+	}
+	
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users

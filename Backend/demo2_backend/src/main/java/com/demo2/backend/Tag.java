@@ -18,46 +18,39 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name="Recipes")
-public class Recipe {
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name="Ingredients")
+public class Tag {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;	
 	
+	private String name;	
+	
+	private String amount;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "recipe_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-	private User user;
-	
-	private String recipeName;
-	
-	private String instructions;
-	
-	
-	public void setUser (User u) {
-		user = u;
-	}
-	
-	public User getUser() {
-		return user;
-	}
+	private Recipe recipe;
 	
 	public void setName (String n) {
-		recipeName = n;
+		name = n;
 	}
 	
 	public String getName() {
-		return recipeName;
+		return name;
 	}
 	
-	public void setIngredients (String n) {
-		instructions = n;
+	public void setAmount (String i) {
+		amount = i;
 	}
 	
-	public String getIngredients() {
-		return instructions;
+	public String getAmount() {
+		return amount;
 	}
 	
 	public int getId() {
@@ -65,8 +58,15 @@ public class Recipe {
 	}
 	
 	@SuppressWarnings("unused")
-	private void setId(int id) {
+	private void setId(Integer id) {
 		this.id = id;
 	}
 	
+	public Recipe getRecipe () {
+		return recipe;
+	}
+	
+	public void setRecipe (Recipe r) {
+		recipe = r;
+	}
 }

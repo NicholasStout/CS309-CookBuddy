@@ -31,6 +31,7 @@ public class RecipeIngredient {
 	
 	private String name;	
 	
+	private String amount;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -42,6 +43,14 @@ public class RecipeIngredient {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public void setAmount (String i) {
+		amount = i;
+	}
+	
+	public String getAmount() {
+		return amount;
 	}
 	
 	public int getId() {

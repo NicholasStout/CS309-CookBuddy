@@ -19,6 +19,8 @@ public class User {
     private int id;
 	
 	private String name;
+	private String email;
+	private String password;
 	
 	public void setName (String n) {
 		name = n;
@@ -34,5 +36,21 @@ public class User {
 	
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public void setEmail(String e) {
+		email = e;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setPassword(String p) {
+		password = p;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 }
