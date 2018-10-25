@@ -23,13 +23,15 @@ import java.util.Map;
 public class RegisterUser extends AppCompatActivity {
 
     // Variables for buttons on the login screen
-    Button btnRegister, btnSignIn;
+    Button btnSubmitInfo, btnToSignInPage;
 
     // Values for the user fields
     EditText uName, uEmail, uPassword, uPasswordConfirm;
 
     // The url for the server
-    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/";
+    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/user/";
+
+    // TODO Find the correct server URL for this
 
     // Alert Dialog
     AlertDialog.Builder builder;
@@ -41,28 +43,25 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         // Initialize variables
-        btnRegister = (Button) findViewById(R.id.submitInfo);
-        btnSignIn = (Button) findViewById(R.id.SignInPage); // Takes user to another page to sign in with existing credentials
+        btnSubmitInfo = (Button) findViewById(R.id.submitInfo); // Submits the user info to the server
+        btnToSignInPage = (Button) findViewById(R.id.signInPage); // Takes user to another page to sign in with existing credentials
 
-        uName = (EditText) findViewById(R.id.userName);
-        uEmail = (EditText) findViewById(R.id.userEmail);
-        uPassword = (EditText) findViewById(R.id.userPassword);
-        uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm);
-        builder = new AlertDialog.Builder(RegisterUser.this);
 
-        // The 'sign in' button takes you to another page
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        uName = (EditText) findViewById(R.id.userName); // Variable for the name entered in field
+        uEmail = (EditText) findViewById(R.id.userEmail); // Variable for the email entered in field
+        uPassword = (EditText) findViewById(R.id.userPassword); // Variable for the password entered in field
+        uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm); // Variable for the password in field
+
+        // TODO Implement a way to check if the passwords entered match
+
+        builder = new AlertDialog.Builder(RegisterUser.this); // The alert dialog being used
+
+        // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
+        btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RegisterUser.this, SignInActivity.class);
-                startActivity(i);
-            }
-        });
 
-        // The register button
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                // Variables that get the string from user's entered fields
                 final String userName, userEmail, userPassword;
                     userName = uName.getText().toString();
                     userEmail = uEmail.getText().toString();
@@ -111,9 +110,14 @@ public class RegisterUser extends AppCompatActivity {
                 };
 
                 AppController.getInstance().addToRequestQueue(stringRequest);
+            }
+        });
 
-                // Takes user to home activity
-                Intent i = new Intent(RegisterUser.this, HomeActivity.class);
+        // The "Sign In" button on this activity that will redirect to the existing user sign in activity
+        btnToSignInPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RegisterUser.this, SignInActivity.class);
                 startActivity(i);
             }
         });
