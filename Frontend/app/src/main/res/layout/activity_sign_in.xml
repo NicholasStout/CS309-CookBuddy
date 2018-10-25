@@ -22,7 +22,7 @@
 
     <!-- The email address of the user -->
     <EditText
-        android:id="@+id/existingEmailAddress"
+        android:id="@+id/enteredEmailAddress"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
 
     <!-- The password of the user -->
     <EditText
-        android:id="@+id/existingPassword"
+        android:id="@+id/enteredPassword"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
