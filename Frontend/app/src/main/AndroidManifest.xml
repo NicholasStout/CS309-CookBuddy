@@ -27,11 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignInActivity" />
         <activity
             android:name=".net_utils.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/CookbuddyTheme.NoActionBar"></activity>
+            android:theme="@style/CookbuddyTheme.NoActionBar" />
+        <activity android:name=".AddRecipe" />
+        <activity android:name=".ViewRecipes"></activity>
     </application>
 
 </manifest>
