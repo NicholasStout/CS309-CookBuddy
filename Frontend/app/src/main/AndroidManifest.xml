@@ -17,21 +17,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CookbuddyTheme">
+
+        <!-- The user registration activity -->
         <activity
             android:name=".RegisterUser"
             android:label="@string/app_name"
             android:theme="@style/CookbuddyTheme">
+
+            <!-- Makes this the default activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- The existing user sign in activity -->
         <activity android:name=".SignInActivity" />
-        <activity
-            android:name=".net_utils.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/CookbuddyTheme.NoActionBar" />
+
         <activity android:name=".AddRecipe" />
         <activity android:name=".ViewRecipes"></activity>
     </application>

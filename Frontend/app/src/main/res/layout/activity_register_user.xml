@@ -71,7 +71,7 @@
 
     <!-- Redirects to existing user sign in page -->
     <Button
-        android:id="@+id/SignInPage"
+        android:id="@+id/signInPage"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
