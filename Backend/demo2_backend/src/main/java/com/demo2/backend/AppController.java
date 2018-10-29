@@ -32,7 +32,7 @@ public class AppController {
 		boolean found = false;
 		User tmp;
 		for (User u : iter) {
-			if ((u.getName().equals(user.getName()) || u.getEmail().equals(user.getEmail())) && (u.getPassword().equals(user.getPassword()))) {
+			if ((u.getName().equals(user.getEmail()) || u.getEmail().equals(user.getEmail())) && (u.getPassword().equals(user.getPassword()))) {
 				found = true;
 				user = u;
 				break;

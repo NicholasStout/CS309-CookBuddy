@@ -12,6 +12,16 @@ import javax.persistence.OneToMany;
 import org.springframework.lang.NonNull;
 
 @Entity
+/**
+ * 
+ * @author Nicholas Stout
+ *
+ *User object. Has three variables
+ *
+ *name: The name of the user.
+ *email: The email of the user.
+ *password: The users password.
+ */
 public class User {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
