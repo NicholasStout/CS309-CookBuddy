@@ -36,8 +36,6 @@ public class SignInActivity extends AppCompatActivity {
     // Variables for the entered email and password
     EditText enteredUserEmail, enteredUserPassword;
 
-    //Strings for comparing the entered info with the info in the database
-
 
     // Variable for the sign in button
     Button btnSignIn, btnSignUp;
@@ -94,6 +92,9 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 };
                 AppController.getInstance().addToRequestQueue(jsonReq);
+
+                Intent i = new Intent(SignInActivity.this, Home.class);
+                startActivity(i);
             }
         });
     }
