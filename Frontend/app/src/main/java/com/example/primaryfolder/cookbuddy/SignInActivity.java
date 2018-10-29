@@ -53,36 +53,7 @@ public class SignInActivity extends AppCompatActivity {
         enteredUserEmail = (EditText) findViewById(R.id.enteredEmailAddress);
         enteredUserPassword = (EditText) findViewById(R.id.enteredPassword);
 
-        btnSignIn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
 
-                enteredEmail = enteredUserEmail.getText().toString();
-                enteredPassword = enteredUserPassword.getText().toString();
-
-                private void makeStringRequest(){
-                    JsonObjectRequest JsonReq = new JsonObjectRequest(Request.Method.POST, "http://proj309-sb-02.misc.iastate.edu:8080/recipes//all", new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try{
-                                userEmail = response.getString("email");
-                                actualPassword = response.getString("password");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d(TAG, "Error: " + error.getMessage());
-                        }
-                    });
-
-                    AppController.getInstance().addToRequestQueue(JsonReq);
-                }
-            }
-        });
     }
 
 }

@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 
 import java.util.HashMap;
@@ -36,6 +39,9 @@ public class RegisterUser extends AppCompatActivity {
     // Alert Dialog
     AlertDialog.Builder builder;
 
+    // Request queue
+    RequestQueue queue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,8 @@ public class RegisterUser extends AppCompatActivity {
 
         builder = new AlertDialog.Builder(RegisterUser.this); // The alert dialog being used
 
+        queue = Volley.newRequestQueue(this);
+
         // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
         btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,12 +76,15 @@ public class RegisterUser extends AppCompatActivity {
                     userPassword = uPassword.getText().toString();
 
                 // Make string request to the server with user information
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, SERVER_URL+"add?userName="+userName,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, SERVER_URL+"add",
+
+                        // Response Listener
                         new Response.Listener<String>() {
                            @Override
                            public void onResponse(String response) {
                                 builder.setTitle("Please wait...");
                                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
                                     @Override
                                     public void onClick(DialogInterface dialog, int i) {
                                         uName.setText("");
@@ -88,6 +99,7 @@ public class RegisterUser extends AppCompatActivity {
 
                         },
 
+                        // Error Listener
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
@@ -101,9 +113,9 @@ public class RegisterUser extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put("userName", userName);
-                            params.put("userEmail", userEmail);
-                            params.put("userPassword", userPassword);
+                            params.put("name", userName);
+                            params.put("email", userEmail);
+                            params.put("password", userPassword);
 
                             return params;
                         }
