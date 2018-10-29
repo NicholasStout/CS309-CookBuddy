@@ -31,7 +31,7 @@ public class AddRecipe extends AppCompatActivity {
     EditText rName, rIngredients, rTags;
 
     // The url for the server
-    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:3306/recipes/";
+    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/";
 
     // Alert Dialog
     AlertDialog.Builder builder;

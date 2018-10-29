@@ -37,7 +37,7 @@ public class SignInActivity extends AppCompatActivity {
     EditText enteredUserEmail, enteredUserPassword;
 
     //Strings for comparing the entered info with the info in the database
-    String enteredEmail, enteredPassword, userEmail, actualPassword;
+
 
     // Variable for the sign in button
     Button btnSignIn, btnSignUp;
@@ -67,13 +67,16 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                enteredEmail = enteredUserEmail.toString();
-                enteredPassword = enteredUserPassword.toString();
+                final String enteredEmail, enteredPassword;
+                enteredEmail = enteredUserEmail.getText().toString();
+                enteredPassword = enteredUserPassword.getText().toString();
                 JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL, null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d(TAG, response.toString());
+                                Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
+                                startActivity(i);
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -82,7 +85,7 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 }) {
                     @Override
-                    protected Map<String, String> getParams(){
+                    protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("email", enteredEmail);
                         params.put("password", enteredPassword);
