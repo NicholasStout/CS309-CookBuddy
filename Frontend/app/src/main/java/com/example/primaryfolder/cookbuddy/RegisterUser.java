@@ -1,5 +1,15 @@
 package com.example.primaryfolder.cookbuddy;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -9,21 +19,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.app.AppController;
+import com.example.primaryfolder.cookbuddy.net_utils.Const;
+import com.android.volley.Request;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterUser extends AppCompatActivity {
+
+    private String TAG = RegisterUser.class.getSimpleName();
 
     // Variables for buttons on the login screen
     Button btnSubmitInfo, btnToSignInPage;
@@ -32,15 +48,10 @@ public class RegisterUser extends AppCompatActivity {
     EditText uName, uEmail, uPassword, uPasswordConfirm;
 
     // The url for the server
-    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/user/";
+    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/users/";
 
-    // TODO Find the correct server URL for this
-
-    // Alert Dialog
-    AlertDialog.Builder builder;
-
-    // Request queue
-    RequestQueue queue;
+    // Progress dialog
+    ProgressDialog pDialog;
 
 
     @Override
@@ -52,76 +63,73 @@ public class RegisterUser extends AppCompatActivity {
         btnSubmitInfo = (Button) findViewById(R.id.submitInfo); // Submits the user info to the server
         btnToSignInPage = (Button) findViewById(R.id.signInPage); // Takes user to another page to sign in with existing credentials
 
-
         uName = (EditText) findViewById(R.id.userName); // Variable for the name entered in field
         uEmail = (EditText) findViewById(R.id.userEmail); // Variable for the email entered in field
         uPassword = (EditText) findViewById(R.id.userPassword); // Variable for the password entered in field
         uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm); // Variable for the password in field
 
-        // TODO Implement a way to check if the passwords entered match
-
-        builder = new AlertDialog.Builder(RegisterUser.this); // The alert dialog being used
-
-        queue = Volley.newRequestQueue(this);
+        pDialog = new ProgressDialog(this); // The progress dialog object for this activity
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
 
         // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
         btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+                /*
+                 *
+                 * TODO 2. CHECK TO MAKE SURE THERE ARE NO NULL PARAMETERS
+                 *
+                 */
                 // Variables that get the string from user's entered fields
                 final String userName, userEmail, userPassword;
-                    userName = uName.getText().toString();
-                    userEmail = uEmail.getText().toString();
-                    userPassword = uPassword.getText().toString();
 
-                // Make string request to the server with user information
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, SERVER_URL+"add",
+                userName = uName.getText().toString();
+                userEmail = uEmail.getText().toString();
+                userPassword = uPassword.getText().toString();
+
+                /*
+                 *
+                 * JSON OBJECT REQUEST USING POST METHOD
+                 *
+                 */
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL + "add", null,
 
                         // Response Listener
-                        new Response.Listener<String>() {
-                           @Override
-                           public void onResponse(String response) {
-                                builder.setTitle("Please wait...");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int i) {
-                                        uName.setText("");
-                                        uEmail.setText("");
-                                        uPassword.setText("");
-                                    }
-                                });
-
-                                AlertDialog alertDialog = builder.create();
-                                alertDialog.show();
-                           }
-
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d(TAG, response.toString());
+                                pDialog.hide();
+                            }
                         },
 
                         // Error Listener
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(RegisterUser.this, "Error:", Toast.LENGTH_SHORT).show();
-                                error.printStackTrace();
-                                uPassword.setText(error.toString());
+                                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                                pDialog.hide();
                             }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
 
-                        }){
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("name", userName);
+                                params.put("email", userEmail);
+                                params.put("password", userPassword);
 
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<String, String>();
-                            params.put("name", userName);
-                            params.put("email", userEmail);
-                            params.put("password", userPassword);
+                                return params;
+                            }
+                        };
 
-                            return params;
-                        }
-                };
+                AppController.getInstance().addToRequestQueue(jsonObjReq);
 
-                AppController.getInstance().addToRequestQueue(stringRequest);
+                Intent j = new Intent(RegisterUser.this, Home.class);
+                startActivity(j);
             }
         });
 
