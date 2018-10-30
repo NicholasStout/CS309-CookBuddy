@@ -52,7 +52,8 @@
 
     <Button
         android:id="@+id/btnGoToUserRegister"
-        android:layout_width="191dp"
+        android:layout_width="150dp"
+        android:textSize="9dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Don't have an account? Sign up!"

@@ -93,7 +93,7 @@ public class RegisterUser extends AppCompatActivity {
                  * String format of entered information
                  *
                  */
-                final String userName, userEmail, userPassword, userPasswordConfirm;
+                final String userName, userEmail, userPassword;
 
                 // Check to see if there is a name entered
                 if (uName.getText().toString().equals("")) {

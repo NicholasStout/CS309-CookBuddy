@@ -1,5 +1,6 @@
 package com.example.primaryfolder.cookbuddy;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -62,43 +63,70 @@ public class SignInActivity extends AppCompatActivity {
         });
 
 
+
+
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //String for the entered info
+                // The progress dialog
+                final ProgressDialog pDialog = new ProgressDialog(SignInActivity.this); // The progress dialog object for this activity
+                pDialog.setMessage("Verifying your information, Please Wait...");
+                pDialog.show();
+
+                // TODO FIND A WAY TO CHECK THE SERVER FOR THE CORRECT LOGIN INFO
+
+                // String for the entered info
                 final String enteredEmail, enteredPassword;
-                enteredEmail = enteredUserEmail.getText().toString();
-                enteredPassword = enteredUserPassword.getText().toString();
 
-                //these are the parameters used by the back end methods
-                Map<String, String> postParam= new HashMap<String, String>();
-                postParam.put("email", enteredEmail);
-                postParam.put("password", enteredPassword);
+                // Check to make sure there is an email entered
+                if (enteredUserEmail.getText().toString().equals("")) {
+                    Toast.makeText(SignInActivity.this, "Error, Please enter a valid email in the required field", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
 
-                //Json request using the post method
-                JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(postParam),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d(TAG, response.toString());
-                                Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
-                                startActivity(i);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                            }
-                }) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json; charset=utf-8");
-                        return headers;
-                    }
-                };
-                AppController.getInstance().addToRequestQueue(jsonReq);
+                if (enteredUserPassword.getText().toString().equals("")) {
+                    Toast.makeText(SignInActivity.this, "Error, Please enter a valid password in the required field", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
+
+                else {
+
+                    // Initialize string fields
+                    enteredEmail = enteredUserEmail.getText().toString();
+                    enteredPassword = enteredUserPassword.getText().toString();
+
+                    //these are the parameters used by the back end methods
+                    Map<String, String> postParam = new HashMap<String, String>();
+                    postParam.put("email", enteredEmail);
+                    postParam.put("password", enteredPassword);
+
+                    //Json request using the post method
+                    JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(postParam),
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d(TAG, response.toString());
+                                    pDialog.hide();
+                                    Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
+                                    startActivity(i);
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            pDialog.hide();
+                        }
+                    }) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json; charset=utf-8");
+                            return headers;
+                        }
+                    };
+                    AppController.getInstance().addToRequestQueue(jsonReq);
+                }
             }
         });
     }
