@@ -65,10 +65,19 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //String for the entered info
                 final String enteredEmail, enteredPassword;
                 enteredEmail = enteredUserEmail.getText().toString();
                 enteredPassword = enteredUserPassword.getText().toString();
-                JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL, null,
+
+                //these are the parameters used by the back end methods
+                Map<String, String> postParam= new HashMap<String, String>();
+                postParam.put("email", enteredEmail);
+                postParam.put("password", enteredPassword);
+
+                //Json request using the post method
+                JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(postParam),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -80,21 +89,16 @@ public class SignInActivity extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    }
+                            }
                 }) {
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("email", enteredEmail);
-                        params.put("password", enteredPassword);
-
-                        return params;
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        return headers;
                     }
                 };
                 AppController.getInstance().addToRequestQueue(jsonReq);
-
-                Intent i = new Intent(SignInActivity.this, Home.class);
-                startActivity(i);
             }
         });
     }
