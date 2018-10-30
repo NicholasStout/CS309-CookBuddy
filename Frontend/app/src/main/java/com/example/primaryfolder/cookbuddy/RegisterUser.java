@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -30,15 +31,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
 import com.android.volley.Request;
+import android.view.View.OnClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import static com.android.volley.Request.Method.POST;
 
 public class RegisterUser extends AppCompatActivity {
 
+    // The tag
     private String TAG = RegisterUser.class.getSimpleName();
 
     // Variables for buttons on the login screen
@@ -49,10 +53,6 @@ public class RegisterUser extends AppCompatActivity {
 
     // The url for the server
     static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/users/";
-
-    // Progress dialog
-    ProgressDialog pDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,70 +68,6 @@ public class RegisterUser extends AppCompatActivity {
         uPassword = (EditText) findViewById(R.id.userPassword); // Variable for the password entered in field
         uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm); // Variable for the password in field
 
-        pDialog = new ProgressDialog(this); // The progress dialog object for this activity
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-
-        // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
-        btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                /*
-                 *
-                 * TODO 2. CHECK TO MAKE SURE THERE ARE NO NULL PARAMETERS
-                 *
-                 */
-                // Variables that get the string from user's entered fields
-                final String userName, userEmail, userPassword;
-
-                userName = uName.getText().toString();
-                userEmail = uEmail.getText().toString();
-                userPassword = uPassword.getText().toString();
-
-                /*
-                 *
-                 * JSON OBJECT REQUEST USING POST METHOD
-                 *
-                 */
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL + "add", null,
-
-                        // Response Listener
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d(TAG, response.toString());
-                                pDialog.hide();
-                            }
-                        },
-
-                        // Error Listener
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                                pDialog.hide();
-                            }
-                        }) {
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-
-                                Map<String, String> params = new HashMap<String, String>();
-                                params.put("name", userName);
-                                params.put("email", userEmail);
-                                params.put("password", userPassword);
-
-                                return params;
-                            }
-                        };
-
-                AppController.getInstance().addToRequestQueue(jsonObjReq);
-
-                Intent j = new Intent(RegisterUser.this, Home.class);
-                startActivity(j);
-            }
-        });
 
         // The "Sign In" button on this activity that will redirect to the existing user sign in activity
         btnToSignInPage.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +75,114 @@ public class RegisterUser extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(RegisterUser.this, SignInActivity.class);
                 startActivity(i);
+            }
+        });
+
+
+        // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
+        btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ProgressDialog pDialog = new ProgressDialog(RegisterUser.this); // The progress dialog object for this activity
+                pDialog.setMessage("Verifying your information, Please Wait...");
+                pDialog.show();
+
+                /*
+                 *
+                 * String format of entered information
+                 *
+                 */
+                final String userName, userEmail, userPassword, userPasswordConfirm;
+
+                // Check to see if there is a name entered
+                if (uName.getText().toString().equals("")) {
+                    Toast.makeText(RegisterUser.this, "Error, Please enter your name in the required field", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
+
+                // Check to see if there is an email entered
+                else if (uEmail.getText().toString().equals("")) {
+                    Toast.makeText(RegisterUser.this, "Error, Please enter a valid email in the required field", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
+
+                // Check to see if there is a password entered in the field
+                else if (uPassword.getText().toString().equals("")) {
+                    Toast.makeText(RegisterUser.this, "Error, Please enter a password in the required field", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
+
+                // Check to make sure passwords match
+                else if (!uPassword.getText().toString().equals(uPasswordConfirm.getText().toString())) {
+                    Toast.makeText(RegisterUser.this, "Error, Please re-enter your passwords and make sure they match", Toast.LENGTH_LONG).show();
+                    pDialog.hide();
+                }
+
+                else {
+
+
+                    /*
+                     *
+                     * Initialize String fields
+                     *
+                     */
+                    userName = uName.getText().toString();
+                    userEmail = uEmail.getText().toString();
+                    userPassword = uPassword.getText().toString();
+
+                    /*
+                     *
+                     * Parameters used by back end methods
+                     *
+                     */
+                    Map<String, String> postParam = new HashMap<>();
+                    postParam.put("name", userName);
+                    postParam.put("email", userEmail);
+                    postParam.put("password", userPassword);
+
+                    /*
+                     *
+                     * Json Request using Post method
+                     *
+                     */
+                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL + "add", new JSONObject(postParam),
+
+                            // Response Listener
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d(TAG, response.toString());
+                                    pDialog.hide();
+                                }
+                            },
+
+                            // Error Listener
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                                    pDialog.hide();
+                                }
+
+                            }) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+
+                            Map<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json; charset=utf-8");
+
+                            return headers;
+                        }
+                    };
+
+                    // Add request to queue
+                    AppController.getInstance().addToRequestQueue(jsonObjReq);
+
+                    // Redirect to Home Page
+                    Intent j = new Intent(RegisterUser.this, Home.class);
+                    startActivity(j);
+                }
             }
         });
     }
