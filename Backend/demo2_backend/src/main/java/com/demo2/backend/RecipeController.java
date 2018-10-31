@@ -46,7 +46,7 @@ public class RecipeController {
 	public @ResponseBody String get_by_id (@RequestParam String id) {
 		int i = Integer.parseInt(id);
 		Optional<Recipe> u = RRepo.findById(i);
-		return u.get().getName();
+		return u.get().getRecipeName();
 	}
 	
 	@GetMapping(path="/remove_by_id{id}")

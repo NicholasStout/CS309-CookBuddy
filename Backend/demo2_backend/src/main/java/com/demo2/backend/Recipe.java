@@ -44,19 +44,19 @@ public class Recipe {
 		return user;
 	}
 	
-	public void setName (String n) {
+	public void setRecipeName (String n) {
 		recipeName = n;
 	}
 	
-	public String getName() {
+	public String getRecipeName() {
 		return recipeName;
 	}
 	
-	public void setIngredients (String n) {
+	public void setInstructions (String n) {
 		instructions = n;
 	}
 	
-	public String getIngredients() {
+	public String getInstructions() {
 		return instructions;
 	}
 	
