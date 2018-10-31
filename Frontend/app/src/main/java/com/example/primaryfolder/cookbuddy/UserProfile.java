@@ -3,7 +3,6 @@ package com.example.primaryfolder.cookbuddy;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,30 +36,33 @@ import android.view.View.OnClickListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import static com.android.volley.Request.Method.POST;
 
-public class Home extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity {
 
-    // Variable for the Action Button
-    FloatingActionButton fab;
-
-    // ArrayList for the recipe names in ListView
-    ArrayList<String> recipeNames = new ArrayList<String>();
-
-    // ArrayList for the recipe ingredients in ListView
-    ArrayList<String> recipeIngredients = new ArrayList<String>();
-
-    // ArrayList for the recipe tags in ListView
-    ArrayList<String> recipeTags = new ArrayList<String>();
-
+    // The button to sign out
+    Button btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_user_profile);
+
+        // Initialize the button
+        btnSignOut = (Button) findViewById(R.id.SignOut);
+
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // TODO
+
+                // Takes the user back to the sign in page
+                Intent i = new Intent(UserProfile.this, SignInActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
