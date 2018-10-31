@@ -7,7 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,19 +50,25 @@ public class Home extends AppCompatActivity {
     // Variable for the Action Button
     FloatingActionButton fab;
 
-    // ArrayList for the recipe names in ListView
-    ArrayList<String> recipeNames = new ArrayList<String>();
-
-    // ArrayList for the recipe ingredients in ListView
-    ArrayList<String> recipeIngredients = new ArrayList<String>();
-
-    // ArrayList for the recipe tags in ListView
-    ArrayList<String> recipeTags = new ArrayList<String>();
+    // Get the ListView
+    ListView listView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // Initialize variables
+        fab = (FloatingActionButton) findViewById(R.id.add); // The floating action button
+        listView = (ListView) findViewById(R.id.recipe_list); // Find recipe list from layout
+
+        // Create an array adapter and set it
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        listView.setAdapter(adapter);
+
+        // What happens when you click floating action button
+
+
     }
 }

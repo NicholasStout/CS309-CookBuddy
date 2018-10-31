@@ -127,6 +127,10 @@ public class SignInActivity extends AppCompatActivity {
                     };
                     AppController.getInstance().addToRequestQueue(jsonReq);
                 }
+
+                // Redirect to Home
+                Intent i = new Intent(SignInActivity.this, Home.class);
+                startActivity(i);
             }
         });
     }
