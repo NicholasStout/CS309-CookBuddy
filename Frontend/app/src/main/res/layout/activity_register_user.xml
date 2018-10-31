@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:theme="@style/CookbuddyTheme"
-    tools:context=".RegisterUser">
+    tools:context=".activities.RegisterUser">
 
     <!-- Cookbuddy Logo -->
     <ImageView
