@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                 }
 
                 // Redirect to Home
-                Intent i = new Intent(SignInActivity.this, HomeActivity.class);
+                Intent i = new Intent(SignInActivity.this, Home.class);
                 startActivity(i);
             }
         });

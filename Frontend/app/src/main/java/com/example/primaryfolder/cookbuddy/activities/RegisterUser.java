@@ -166,7 +166,7 @@ public class RegisterUser extends AppCompatActivity {
                     AppController.getInstance().addToRequestQueue(jsonObjReq);
 
                     // Redirect to Home Page
-                    Intent j = new Intent(RegisterUser.this, HomeActivity.class);
+                    Intent j = new Intent(RegisterUser.this, Home.class);
                     startActivity(j);
                 }
             }
