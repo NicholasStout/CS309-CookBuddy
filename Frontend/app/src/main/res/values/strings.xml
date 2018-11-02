@@ -2,6 +2,11 @@
     <string name="app_name">CookBuddy</string>
     <string name="title_activity_user_login">Sign in</string>
 
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_viewrecipes">View Recipes</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_profile">Profile</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -24,4 +29,7 @@
     <string name="exitbutton">exitButton</string>
     <string name="you_must_enter_a_username_to_use_global_messaging">You must enter a username to use Global Messaging*:</string>
     <string name="username">Username</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
