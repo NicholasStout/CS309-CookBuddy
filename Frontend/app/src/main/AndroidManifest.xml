@@ -21,24 +21,36 @@
 
         <!-- The user registration activity -->
         <activity
-            android:name=".RegisterUser"
+            android:name=".activities.RegisterUser"
             android:label="@string/app_name"
             android:theme="@style/CookbuddyTheme">
-
             <!-- Makes this the default activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- The existing user sign in activity -->
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".AddRecipe" />
-        <activity android:name=".ViewRecipes" />
-        <activity android:name=".Home" />
-        <activity android:name=".UserProfile"></activity>
+        <activity
+            android:name=".activities.SignInActivity" />
+
+        <activity
+            android:name=".AddRecipe"/>
+
+        <activity
+            android:name=".ViewRecipes"/>
+
+        <activity
+            android:name=".UserProfile"/>
+
+        <activity
+            android:name=".activities.Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/CookbuddyTheme" />
+
+        <activity
+            android:name=".activities.MessagingActivity" />
     </application>
 
 </manifest>

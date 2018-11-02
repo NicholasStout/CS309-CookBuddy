@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,12 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.R;
+
+import org.json.JSONObject;
 
 import java.io.StringReader;
 import java.util.HashMap;
@@ -24,14 +28,17 @@ import java.util.Map;
 
 public class AddRecipe extends AppCompatActivity {
 
+    String TAG = AddRecipe.class.getSimpleName();
+
     // Variables for the two buttons 'Submit' and 'View Recipes'
     Button btnSubmit, btnViewRecipes;
 
     // Values for the name, ingredients, and tags that are entered by the user
-    EditText rName, rIngredients, rTags;
+    EditText rName, rIngredients, rInstructions;
 
     // The url for the server
     static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/";
+    int userID = 1;
 
     // Alert Dialog
     AlertDialog.Builder builder;
@@ -47,32 +54,31 @@ public class AddRecipe extends AppCompatActivity {
         btnViewRecipes = (Button) findViewById(R.id.buttonViewRecipes);
         rName = (EditText) findViewById(R.id.rName);
         rIngredients = (EditText) findViewById(R.id.rIngredients);
-        rTags = (EditText) findViewById(R.id.rTags);
+        rInstructions = (EditText) findViewById(R.id.rTags);
         builder = new AlertDialog.Builder(AddRecipe.this);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String recipeName, recipeIngredients, recipeTags;
+                final String recipeName, recipeIngredients, recipeInstructions;
                 recipeName = rName.getText().toString();
                 recipeIngredients = rIngredients.getText().toString();
-                recipeTags = rTags.getText().toString();
+                recipeInstructions = rInstructions.getText().toString();
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, SERVER_URL+"add?recipeName="+recipeName,
-                        new Response.Listener<String>() {
+                Map<String, String> postParam = new HashMap<String, String>();
+                postParam.put("recipe_name", recipeName);
+                postParam.put("instructions", recipeInstructions);
+
+
+
+                JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL+userID+"/add",
+                        new JSONObject(postParam),
+                        new Response.Listener<JSONObject>() {
                             @Override
-                            public void onResponse(String response) {
-                                builder.setTitle("Server Response");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        rName.setText("");
-                                        rIngredients.setText("");
-                                        rTags.setText("");
-                                    }
-                                });
-                                AlertDialog alertDialog = builder.create();
-                                alertDialog.show();
+                            public void onResponse(JSONObject response) {
+                                Log.d(TAG, response.toString());
+                                Intent i = new Intent(AddRecipe.this, ViewRecipes.class);
+                                startActivity(i);
                             }
                         },
 
@@ -82,19 +88,17 @@ public class AddRecipe extends AppCompatActivity {
 
                                 Toast.makeText(AddRecipe.this, "Error:", Toast.LENGTH_SHORT).show();
                                 error.printStackTrace();
-                                rTags.setText(error.toString());
+                                rInstructions.setText(error.toString());
                             }
                         }){
                     @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("recipeName", recipeName);
-                        params.put("recipeIngredients", recipeIngredients);
-                        //params.put("recipeTags", recipeTags);
-                        return params;
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        return headers;
                     }
                 };
-                AppController.getInstance().addToRequestQueue(stringRequest);
+                AppController.getInstance().addToRequestQueue(jsonReq);
             }
         });
 

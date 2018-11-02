@@ -1,9 +1,7 @@
-package com.example.primaryfolder.cookbuddy;
+package com.example.primaryfolder.cookbuddy.activities;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,14 +16,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.ViewRecipes;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                 }
 
                 // Redirect to Home
-                Intent i = new Intent(SignInActivity.this, Home.class);
+                Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
                 startActivity(i);
             }
         });

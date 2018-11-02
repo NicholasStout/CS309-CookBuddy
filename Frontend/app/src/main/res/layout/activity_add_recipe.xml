@@ -43,16 +43,16 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:text="Recipe Tags:"
+        android:text="Recipe Instructions:"
         android:textSize="24sp" />
 
     <EditText
         android:id="@+id/rTags"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="191dp"
         android:ems="10"
-        android:inputType="text"
-        android:hint="Enter Tags" />
+        android:hint="Enter Instructions"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/buttonSubmitRecipe"
