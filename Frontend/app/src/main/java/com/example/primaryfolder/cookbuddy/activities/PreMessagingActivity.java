@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 public class PreMessagingActivity extends AppCompatActivity {
     Button b1;
     EditText e1;
+    TextView t1;
     private WebSocketClient cc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class PreMessagingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_premessaging);
         b1=(Button)findViewById(R.id.JoinChatButton);
         e1=(EditText)findViewById(R.id.userNameEnter);
+        t1=(TextView)findViewById(R.id.ChatView);
 
         b1.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View view){
@@ -42,7 +44,8 @@ public class PreMessagingActivity extends AppCompatActivity {
                         @Override
                         public void onMessage(String message) {
                             Log.d("", "run() returned: " + message);
-                            String s="no message yet";
+                            String s=t1.getText().toString();
+                            t1.setText(s+" Server:"+message);
                         }
 
                         @Override
