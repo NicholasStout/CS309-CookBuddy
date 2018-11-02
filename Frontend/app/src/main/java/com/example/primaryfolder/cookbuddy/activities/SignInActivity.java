@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                 }
 
                 // Redirect to Home
-                Intent i = new Intent(SignInActivity.this, Home.class);
+                Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
                 startActivity(i);
             }
         });
