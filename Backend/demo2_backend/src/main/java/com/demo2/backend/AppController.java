@@ -23,8 +23,23 @@ public class AppController {
 	
 	@PostMapping(path="/add", consumes = "application/json")
 	public @ResponseBody Map<String, String> addNewUser (@RequestBody User user) {
-		uRepo.save(user);
-		return Response.success(user.getID());
+			Iterable<User>iter = uRepo.findAll();
+			boolean found = false;
+			User tmp;
+			for (User u : iter) {
+				if ((u.getName().equals(user.getName()) || u.getEmail().equals(user.getEmail()))) {
+					found = true;
+					user = u;
+					break;
+				}
+			}
+			if (found)
+				return Response.failed();
+			else
+				tmp = new User();
+				tmp.setName("No sign in");
+				uRepo.save(user);
+				return Response.success(user.getID());
 	}
 	
 	@PostMapping(path="/sign_in", consumes = "application/json")
@@ -42,8 +57,6 @@ public class AppController {
 		if (found)
 			return Response.user(user);
 		else
-			tmp = new User();
-			tmp.setName("No sign in");
 			return Response.failed();
 	}
 	

@@ -66,7 +66,7 @@ public class AddRecipe extends AppCompatActivity {
                 recipeInstructions = rInstructions.getText().toString();
 
                 Map<String, String> postParam = new HashMap<String, String>();
-                postParam.put("recipe_name", recipeName);
+                postParam.put("recipeName", recipeName);
                 postParam.put("instructions", recipeInstructions);
 
 

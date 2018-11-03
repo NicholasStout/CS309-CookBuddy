@@ -27,7 +27,7 @@ public class ViewRecipes extends AppCompatActivity {
     private String TAG = ViewRecipes.class.getSimpleName();
     private Button btnGetRecipes, btnNewRecipe;
     private TextView mTextView;
-    private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/all/";
+    private String url = "proj309-sb-02.misc.iastate.edu:8080/recipes/all/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

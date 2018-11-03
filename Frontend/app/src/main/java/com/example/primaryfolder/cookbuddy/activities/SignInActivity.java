@@ -20,6 +20,7 @@ import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.ViewRecipes;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     Button btnSignIn, btnSignUp;
 
     // Server url
-    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/users/sign_in";
+    static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080//users/sign_in";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +105,17 @@ public class SignInActivity extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Log.d(TAG, response.toString());
                                     pDialog.hide();
-                                    Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
-                                    startActivity(i);
+                                    try {
+                                        if (response.getInt("Error") == 0) {
+                                            Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
+                                            startActivity(i);
+                                        } else {
+                                            Toast.makeText(SignInActivity.this, "Error: User name or password incorrect", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        Toast.makeText(SignInActivity.this, "Error: Something is wrong!", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -123,10 +133,6 @@ public class SignInActivity extends AppCompatActivity {
                     };
                     AppController.getInstance().addToRequestQueue(jsonReq);
                 }
-
-                // Redirect to Home
-                Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
-                startActivity(i);
             }
         });
     }

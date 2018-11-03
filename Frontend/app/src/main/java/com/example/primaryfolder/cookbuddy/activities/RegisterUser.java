@@ -21,6 +21,7 @@ import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.android.volley.Request;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -63,7 +64,6 @@ public class RegisterUser extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
 
         // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
         btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +140,21 @@ public class RegisterUser extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Log.d(TAG, response.toString());
                                     pDialog.hide();
+                                    int err;
+                                    try {
+                                        err = response.getInt("Error");
+                                    } catch (JSONException e) {
+                                        err = 1;
+                                    }
+                                    if (err == 0) {
+                                        Intent j = new Intent(RegisterUser.this, Home.class);
+                                        startActivity(j);
+
+                                    } else {
+                                        Toast.makeText(RegisterUser.this, "Err" +
+                                                "or: User name or email taken", Toast.LENGTH_SHORT).show();
+
+                                    }
                                 }
                             },
 
@@ -164,10 +179,6 @@ public class RegisterUser extends AppCompatActivity {
 
                     // Add request to queue
                     AppController.getInstance().addToRequestQueue(jsonObjReq);
-
-                    // Redirect to Home Page
-                    Intent j = new Intent(RegisterUser.this, Home.class);
-                    startActivity(j);
                 }
             }
         });
