@@ -12,12 +12,6 @@ import android.widget.TextView;
 import com.example.primaryfolder.cookbuddy.R;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_6455;
-import org.java_websocket.handshake.ServerHandshake;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class MessagingActivity extends AppCompatActivity {
     Button b1, b2;
@@ -38,7 +32,7 @@ public class MessagingActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MessagingActivity.this, Home.class);
+                Intent i = new Intent(MessagingActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });

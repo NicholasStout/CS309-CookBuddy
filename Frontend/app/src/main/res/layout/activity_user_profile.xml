@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:theme="@style/CookbuddyTheme"
-    tools:context=".UserProfile">
+    tools:context=".activities.UserProfile">
 
     <!-- The button to sign a user out of the app -->
     <Button

@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.R;
-import com.example.primaryfolder.cookbuddy.ViewRecipes;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 
 import org.json.JSONException;
