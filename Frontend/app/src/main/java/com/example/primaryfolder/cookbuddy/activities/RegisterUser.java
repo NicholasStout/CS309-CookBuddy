@@ -65,7 +65,7 @@ public class RegisterUser extends AppCompatActivity {
         });
 
 
-        // The "Register" button on this activity that will submit the info entered to the server and redirect to Home
+        // The "Register" button on this activity that will submit the info entered to the server and redirect to MainActivity
         btnSubmitInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,8 +165,8 @@ public class RegisterUser extends AppCompatActivity {
                     // Add request to queue
                     AppController.getInstance().addToRequestQueue(jsonObjReq);
 
-                    // Redirect to Home Page
-                    Intent j = new Intent(RegisterUser.this, Home.class);
+                    // Redirect to MainActivity Page
+                    Intent j = new Intent(RegisterUser.this, MainActivity.class);
                     startActivity(j);
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.primaryfolder.cookbuddy;
+package com.example.primaryfolder.cookbuddy.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.primaryfolder.cookbuddy.activities.SignInActivity;
+import com.example.primaryfolder.cookbuddy.R;
 
 public class UserProfile extends AppCompatActivity {
 

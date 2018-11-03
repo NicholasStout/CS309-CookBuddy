@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.primaryfolder.cookbuddy.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,10 +61,9 @@ public class MessagingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messaging, container, false);
+        return null;// inflater.inflate(R.layout.fragment_messaging, container, false); // TODO FIX THIS
     }
 
     // TODO: Rename method, update argument and hook method into UI event
