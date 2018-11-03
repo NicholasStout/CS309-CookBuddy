@@ -1,5 +1,9 @@
 package com.demo2.backend;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +28,43 @@ public class RecipeController {
 	private UserRepository URepo;
 	
 	@PostMapping(path= "/{user_id}/add", consumes = "application/json")
-	public @ResponseBody int addNewRecipe (@PathVariable (value = "user_id") int userID, @RequestBody Recipe recipe) {
+	public @ResponseBody Map<String,String> addNewRecipe (@PathVariable (value = "user_id") int userID, @RequestBody Recipe recipe) {
 		Optional<User> u = URepo.findById(userID);
 		recipe.setUser(u.get());
 		RRepo.save(recipe);
-		return recipe.getId();
+		return Response.recipe(recipe);
 	}
 	
 	@GetMapping(path="/{user_id}/all")
-	public @ResponseBody Iterable<Recipe> getRecipesByUserId(@PathVariable (value = "user_id") int userID) {
-		return RRepo.findByUserId(userID);
+	public @ResponseBody List<Map<String,String>> getRecipesByUserId(@PathVariable (value = "user_id") int userID) {
+		Iterator<Recipe> i = RRepo.findByUserId(userID).iterator();
+		List<Map<String,String>> ret = new ArrayList<Map<String,String>>();
+		while (i.hasNext()) {
+			ret.add(Response.recipe(i.next()));
+		}
+		return ret;
 	}
 	
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Recipe> getAllRecipes() {
+	public @ResponseBody List<Map<String,String>> getAllRecipes() {
 		// This returns a JSON or XML with the users
-		return RRepo.findAll();
+		Iterator<Recipe> i = RRepo.findAll().iterator();
+		List<Map<String,String>> ret = new ArrayList<Map<String,String>>();
+		while (i.hasNext()) {
+			ret.add(Response.recipe(i.next()));
+		}
+		return ret;
 	}
 	
 	@GetMapping(path="/get_by_id")
-	public @ResponseBody String get_by_id (@RequestParam String id) {
+	public @ResponseBody Map<String, String> get_by_id (@RequestParam String id) {
 		int i = Integer.parseInt(id);
-		Optional<Recipe> u = RRepo.findById(i);
-		return u.get().getRecipeName();
+		Optional<Recipe> r = RRepo.findById(i);
+		if (r.isPresent())
+			return Response.recipe(r.get());
+		else {
+			return Response.failed();
+		}
 	}
 	
 	@GetMapping(path="/remove_by_id{id}")

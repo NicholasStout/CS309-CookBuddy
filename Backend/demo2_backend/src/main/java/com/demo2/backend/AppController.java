@@ -1,5 +1,6 @@
 package com.demo2.backend;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class AppController {
 	private UserRepository uRepo;
 	
 	@PostMapping(path="/add", consumes = "application/json")
-	public @ResponseBody int addNewUser (@RequestBody User user) {
+	public @ResponseBody Map<String, String> addNewUser (@RequestBody User user) {
 		uRepo.save(user);
-		return user.getID();
+		return Response.success(user.getID());
 	}
 	
 	@PostMapping(path="/sign_in", consumes = "application/json")
-	public @ResponseBody User signIn (@RequestBody User user) {
+	public @ResponseBody Map<String,String> signIn (@RequestBody User user) {
 		Iterable<User>iter = uRepo.findAll();
 		boolean found = false;
 		User tmp;
@@ -39,11 +40,11 @@ public class AppController {
 			}
 		}
 		if (found)
-			return user;
+			return Response.user(user);
 		else
 			tmp = new User();
 			tmp.setName("No sign in");
-			return tmp;
+			return Response.failed();
 	}
 	
 	@GetMapping(path="/all")
@@ -53,10 +54,13 @@ public class AppController {
 	}
 	
 	@GetMapping(path="/get_by_id")
-	public @ResponseBody String get_by_id (@RequestParam String id) {
+	public @ResponseBody Map<String,String> get_by_id (@RequestParam String id) {
 		int i = Integer.parseInt(id);
 		Optional<User> u = uRepo.findById(i);
-		return u.get().getName();
+		if (u.isPresent()) {
+			return Response.user(u.get());
+		}
+		return Response.failed();
 	}
 	
 	@GetMapping(path="/remove_by_id")
