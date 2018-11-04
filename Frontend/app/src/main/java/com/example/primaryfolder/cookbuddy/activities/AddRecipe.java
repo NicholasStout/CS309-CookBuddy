@@ -1,9 +1,9 @@
 package com.example.primaryfolder.cookbuddy.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +15,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.app.AppController;
 
 import org.json.JSONObject;
 
@@ -74,7 +74,7 @@ public class AddRecipe extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d(TAG, response.toString());
-                                Intent i = new Intent(AddRecipe.this, ViewRecipes.class);
+                                Intent i = new Intent(AddRecipe.this, MainActivity.class);
                                 startActivity(i);
                             }
                         },
