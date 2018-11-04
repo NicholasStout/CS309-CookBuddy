@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.app.AppController;
@@ -25,7 +26,7 @@ public class ViewRecipes extends AppCompatActivity {
     private String TAG = ViewRecipes.class.getSimpleName();
     private Button btnGetRecipes, btnNewRecipe;
     private TextView mTextView;
-    private String url = "proj309-sb-02.misc.iastate.edu:8080/recipes/all/";
+    private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +48,20 @@ public class ViewRecipes extends AppCompatActivity {
         btnGetRecipes.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>(){
+                JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONArray>(){
                             @Override
-                            public void onResponse(JSONObject response){
+                            public void onResponse(JSONArray response){
                                 VolleyLog.d(TAG, response.toString());
 
                                 try{
-                                    JSONArray jsonArray = response.getJSONArray("recipes");
 
-                                    for(int i = 0; i < jsonArray.length(); i++){
+                                    for(int i = 0; i < response.length(); i++){
                                         //get current Json object
-                                        JSONObject recipe = jsonArray.getJSONObject(i);
+                                        JSONObject recipe = response.getJSONObject(i);
 
-                                        String recipeName = recipe.getString("recipe_name");
-                                        int recipeID = recipe.getInt("id");
+                                        String recipeName = recipe.getString("recipeName");
+                                        int recipeID = recipe.getInt("recipeId");
                                         String recipeInstructions = recipe.getString("instructions");
 
                                         mTextView.append("Recipe Name: " + recipeName + " ID: " + recipeID +"\n");
@@ -76,6 +76,7 @@ public class ViewRecipes extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error){
                                 VolleyLog.d(TAG, "Error: " + error.getMessage());
+                                mTextView.append(error.getMessage());
                             }
                         });
                 AppController.getInstance().addToRequestQueue(jsonReq);
