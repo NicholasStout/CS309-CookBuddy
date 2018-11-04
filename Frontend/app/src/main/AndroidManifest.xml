@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.primaryfolder.cookbuddy">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -9,6 +10,7 @@
 
     <!-- Add permission to use the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".app.AppController"
@@ -23,7 +25,25 @@
         <activity
             android:name=".activities.RegisterUser"
             android:label="@string/app_name"
-            android:theme="@style/CookbuddyTheme">
+            android:theme="@style/CookbuddyTheme" />
+
+        <!-- The existing user sign in activity -->
+        <activity android:name=".activities.SignInActivity" />
+
+
+        <activity android:name=".activities.AddRecipe" />
+
+
+        <activity android:name=".activities.ViewRecipes" />
+
+
+        <activity android:name=".activities.UserProfile" />
+
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="MainActivity"
+            android:theme="@style/CookbuddyTheme" >
 
             <!-- Makes this the default activity -->
             <intent-filter>
@@ -33,16 +53,10 @@
             </intent-filter>
         </activity>
 
-        <!-- The existing user sign in activity -->
-        <activity android:name=".activities.SignInActivity" />
-        <activity android:name=".activities.AddRecipe" />
-        <activity android:name=".activities.ViewRecipes" />
-        <activity android:name=".activities.UserProfile" />
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="HomeActivity"
-            android:theme="@style/CookbuddyTheme" />
+
         <activity android:name=".activities.MessagingActivity" />
+
+
     </application>
 
 </manifest>

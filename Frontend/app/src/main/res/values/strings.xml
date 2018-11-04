@@ -13,14 +13,7 @@
     <string name="nav_view_recipes">View Recipes</string>
     <string name="nav_messaging">Messaging</string>
     <string name="nav_profile">Profile</string>
-
-    <!-- Toolbar titles when navigation menu item is selected -->
-    <string-array name="nav_item_activity_titles">
-        <item>Home</item>
-        <item>View Recipes</item>
-        <item>Messaging</item>
-        <item>Profile</item>
-    </string-array>
+    <string name="action_settings">Settings</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

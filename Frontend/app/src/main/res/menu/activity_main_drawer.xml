@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- The drawer for the menu on the home activity -->
 <!-- Function: renders the navigation drawer list items -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"

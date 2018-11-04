@@ -1,9 +1,6 @@
 package com.example.primaryfolder.cookbuddy.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -17,250 +14,86 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.fragments.HomeFragment;
 import com.example.primaryfolder.cookbuddy.fragments.MessagingFragment;
+import com.example.primaryfolder.cookbuddy.fragments.ProfileFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ViewRecipesFragment;
+import com.example.primaryfolder.cookbuddy.net_utils.Const;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // instantiate variables
-    private NavigationView navigationView;
-    private DrawerLayout drawer;
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
-
-    public static int navItemIndex = 0; // index to identify the current nav menu item
-
-    // tags used to attach fragments
-    private static final String TAG_HOME = "home";
-    private static final String TAG_VIEW_RECIPES = "view_recipes";
-    private static final String TAG_MESSAGING = "messaging";
-    private static final String TAG_PROFILE = "profile";
-    public static String CURRENT_TAG = TAG_HOME;
-
-    // toolbar titles respected to selected nav menu item
-    private String[] activityTitles;
-
-    // flag to load home fragment when user presses back key
-    private boolean shouldLoadHomeFragOnBackPress = true;
-    private Handler handler;
+    private View navHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar); // instantiate the toolbar
-        setSupportActionBar(toolbar); // set the toolbar as the action bar
+        // the toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        handler = new Handler(); // create a new handler
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout); // initialize the drawer used
-        navigationView = (NavigationView) findViewById(R.id.nav_view); // initialize the navigation view
-        fab = (FloatingActionButton) findViewById(R.id.fab); // initialize the floating action button
-
-        // load toolbar titles from string resources
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-        // TODO create functionality for the floating action button
+        // the floating action button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
-        setUpNavigationView(); // initialize the navigation menu
+        // the drawer
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        if (savedInstanceState == null) {
-            navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
-            loadHomeFragment();
-        }
-    }
+        // the view of the nav bar
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navHeader = navigationView.getHeaderView(0);
 
-    /***
-     * Initializes the Navigation Drawer by creating necessary click listeners and other functions.
-     * // TODO IMPLEMENT FRAGMENTS INSTEAD OF ACTIVITIES
-     */
-    private void setUpNavigationView() {
-        // setting NavigationView Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            // this method will trigger on item click of the navigation menu
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // check to see which item is being selected and perform appropriate action
-                switch (item.getItemId()) {
-                    // replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_home:
-                        navItemIndex = 0; // change the index of the item selected
-                        CURRENT_TAG = TAG_HOME; // set the current tag
-                        // launch new intent (or load fragment)
-                        break;
-                    case R.id.nav_view_recipes:
-                        navItemIndex = 1;
-                        CURRENT_TAG = TAG_VIEW_RECIPES;
-                        startActivity(new Intent(MainActivity.this, ViewRecipes.class)); // launch new intent (or load fragment)
-                        drawer.closeDrawers(); // close the drawer
-                        return true;
-                    case R.id.nav_messaging:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_MESSAGING;
-                        startActivity(new Intent(MainActivity.this, MessagingActivity.class)); // launch new intent (or load fragment)
-                        drawer.closeDrawers(); // close the drawer
-                    case R.id.nav_profile:
-                        navItemIndex = 3;
-                        CURRENT_TAG = TAG_PROFILE;
-                        break;
-                    default:
-                        navItemIndex = 0;
-                }
+        // loading profile image
+        ImageView profileImage = navHeader.findViewById(R.id.profileImage);
+        Glide.with(this).load(Const.PROFILE_URL)
+                .apply(RequestOptions.circleCropTransform())
+                .thumbnail(0.5f)
+                .into(profileImage);
 
-                // check if the item is in checked state or not, if not make it in checked state
-                if (item.isChecked()) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                item.setChecked(true);
-                loadHomeFragment();
-                return true;
-            }
-        });
+        // loading background image
+        ImageView navBackground = navHeader.findViewById(R.id.img_header_bg);
+        Glide.with(this).load(Const.BACKGROUND_URL)
+                .thumbnail(0.5f)
+                .into(navBackground);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // code here will be triggered once the drawer opens as we don't want anything to happen so we leave this blank
-                super.onDrawerOpened(drawerView);
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // code here will be triggered once the drawer closes as we don't want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
-        };
-
-        // setting the actionbarToggle to drawer layout
-        drawer.addDrawerListener(actionBarDrawerToggle);
-
-        // calling sync state is necessary or else the hamburger icon won't show
-        actionBarDrawerToggle.syncState();
-    }
-
-    /***
-     * Loads the fragment returned from getHomeFragment() function into FrameLayout.
-     * It also takes care of other things like changing the toolbar title, hiding / showing fab,
-     * invalidating the options menu so that new menu can be loaded for different fragment
-     */
-    private void loadHomeFragment() throws NullPointerException {
-        // select appropriate nav menu item
-        selectNavMenu();
-
-        // set toolbar title
-        setToolbarTitle();
-
-        // if user select the current navigation menu again, don't do anything
-        // just close the navigation drawer
-        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
-            drawer.closeDrawers();
-            // show or hide the fab button
-            toggleFab();
-            return;
-        }
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                // update the main content by replacing fragments
-                Fragment fragment = getHomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
-            }
-        };
-        // If mPendingRunnable is not null, then add to the message queue
-        if (mPendingRunnable != null) {
-            handler.post(mPendingRunnable);
-        }
-
-        // show or hide the fab button
-        toggleFab();
-
-        //Closing drawer on item click
-        drawer.closeDrawers();
-
-        // refresh toolbar menu
-        invalidateOptionsMenu();
-    }
-
-    /***
-     * Returns the appropriate Fragment depending on the nav menu item user selected.
-     * For example if user selects Messaging from nav menu, it returns MessagingFragment.
-     * This can be done by using the variable navItemIndex.
-     */
-    private Fragment getHomeFragment() {
-        switch (navItemIndex) {
-            case 1:
-                // view recipes
-                ViewRecipesFragment viewRecipesFragment = new ViewRecipesFragment();
-                return viewRecipesFragment;
-            case 2:
-                // messaging
-                MessagingFragment messagingFragment = new MessagingFragment();
-                return messagingFragment;
-            default:
-                return new ViewRecipesFragment();
-        }
-    }
-
-    private void setToolbarTitle() throws NullPointerException {
-        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
-    }
-
-    private void selectNavMenu() {
-        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
+        // select Home by default
+        navigationView.setCheckedItem(R.id.nav_home);
+        Fragment fragment = new HomeFragment();
+        displaySelectedFragment(fragment);
     }
 
     @Override
     public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawers();
-            return;
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-
-        // This code loads home fragment when back key is pressed
-        // when user is in other fragment than home
-        if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on other navigation menu
-            // rather than home
-            if (navItemIndex != 0) {
-                navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
-                loadHomeFragment();
-                return;
-            }
-        }
-
-        super.onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        // show menu only when home fragment is selected
-        if (navItemIndex == 0) {
-            getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        }
-
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -271,14 +104,49 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
-    // show or hide the fab
-    private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        Fragment fragment = null;
+        if (id == R.id.nav_home) {
+            fragment = new HomeFragment();
+            displaySelectedFragment(fragment);
+        } else if (id == R.id.nav_view_recipes) {
+            fragment = new ViewRecipesFragment();
+            displaySelectedFragment(fragment);
+
+        } else if (id == R.id.nav_messaging) {
+            fragment = new MessagingFragment();
+            displaySelectedFragment(fragment);
+
+        } else if (id == R.id.nav_profile) {
+            fragment = new ProfileFragment();
+            displaySelectedFragment(fragment);
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    /**
+     * Loads the specified fragment to the frame
+     *
+     * @param fragment
+     */
+    private void displaySelectedFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame, fragment);
+        fragmentTransaction.commit();
     }
 }

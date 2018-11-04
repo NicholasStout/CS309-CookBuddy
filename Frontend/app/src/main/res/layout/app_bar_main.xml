@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.primaryfolder.cookbuddy.activities.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <!-- The layout for the app bar -->
     <android.support.design.widget.AppBarLayout
@@ -19,17 +19,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
             app:popupTheme="@style/CookbuddyTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
     
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </FrameLayout>
+    <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

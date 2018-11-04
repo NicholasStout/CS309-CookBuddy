@@ -12,12 +12,12 @@ import com.example.primaryfolder.cookbuddy.net_utils.Const;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ViewRecipesFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ViewRecipesFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ViewRecipesFragment extends Fragment {
+public class HomeFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -30,12 +30,12 @@ public class ViewRecipesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(Const.TAG_VIEW_RECIPES);
+        getActivity().setTitle(Const.TAG_HOME);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_recipes, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
