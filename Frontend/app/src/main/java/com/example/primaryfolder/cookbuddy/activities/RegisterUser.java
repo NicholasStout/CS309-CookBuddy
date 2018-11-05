@@ -150,6 +150,8 @@ public class RegisterUser extends AppCompatActivity {
                                         Intent j = new Intent(RegisterUser.this, MainActivity.class);
                                         startActivity(j);
 
+                                        // TODO Save login information to shared preference
+
                                     } else {
                                         Toast.makeText(RegisterUser.this, "Err" +
                                                 "or: User name or email taken", Toast.LENGTH_SHORT).show();

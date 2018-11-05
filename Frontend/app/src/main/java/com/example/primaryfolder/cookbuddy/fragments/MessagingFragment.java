@@ -47,11 +47,6 @@ public class MessagingFragment extends Fragment {
     private TextView t1;
     private WebSocketClient cc;
 
-
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
