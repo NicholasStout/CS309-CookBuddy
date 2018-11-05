@@ -31,15 +31,22 @@ public class RecipeController {
 	@PostMapping(path= "/{user_id}/add", consumes = "application/json")
 	public @ResponseBody Map<String,String> addNewRecipe (@PathVariable (value = "user_id") int userID, @RequestBody Recipe recipe) {
 		Optional<User> u = URepo.findById(userID);
-		recipe.setUser(u.get());
-		RRepo.save(recipe);
-		return Response.recipe(recipe);
+		if (u.isPresent()) {
+			recipe.setUser(u.get());
+			RRepo.save(recipe);
+			return Response.recipe(recipe);
+		} else {
+			return Response.failed();
+		}
 	}
 	
 	@GetMapping(path="/{user_id}/all")
 	public @ResponseBody List<Map<String,String>> getRecipesByUserId(@PathVariable (value = "user_id") int userID) {
 		Iterator<Recipe> i = RRepo.findByUserId(userID).iterator();
 		List<Map<String,String>> ret = new ArrayList<Map<String,String>>();
+		if (!i.hasNext()) {
+			ret.add(Response.failed());
+		}
 		while (i.hasNext()) {
 			ret.add(Response.recipe(i.next()));
 		}
@@ -51,6 +58,9 @@ public class RecipeController {
 		// This returns a JSON or XML with the users
 		Iterator<Recipe> i = RRepo.findAll().iterator();
 		List<Map<String,String>> ret = new ArrayList<Map<String,String>>();
+		if (!i.hasNext()) {
+			ret.add(Response.failed());
+		}
 		while (i.hasNext()) {
 			ret.add(Response.recipe(i.next()));
 		}

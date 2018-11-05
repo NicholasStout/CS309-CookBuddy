@@ -3,6 +3,8 @@ package com.demo2.backend;
 import java.util.HashMap;
 import java.util.Map;
 
+import javassist.bytecode.Descriptor.Iterator;
+
 public class Response {
 	public static Map<String, String> failed () {
 		Map<String, String> ret = new HashMap<String, String>();
@@ -34,6 +36,15 @@ public class Response {
 		ret.put("recipeName", r.getRecipeName());
 		ret.put("instructions", r.getInstructions());
 		ret.putAll(user(r.getUser()));
+		return ret;
+	}
+	
+	public static Map<String, String> recipeIng (RecipeIngredient r) {
+		Map<String, String> ret = new HashMap<String, String>();
+		ret.put("Error", "0");
+		ret.put("ingredientId",  new Integer(r.getId()).toString());
+		ret.put("ingredientName", r.getName());
+		ret.put("amount", r.getAmount());
 		return ret;
 	}
 }
