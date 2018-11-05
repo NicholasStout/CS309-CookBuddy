@@ -30,5 +30,6 @@
 
   <component name="ProjectType">
     <option name="id" value="Android" />
+	</option>
   </component>
 </project>

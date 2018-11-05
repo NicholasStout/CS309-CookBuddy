@@ -1,4 +1,4 @@
-package websocket;
+package com.demo2.backend.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
