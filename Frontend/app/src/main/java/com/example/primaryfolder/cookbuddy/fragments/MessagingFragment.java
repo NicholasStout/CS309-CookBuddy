@@ -84,7 +84,12 @@ public class MessagingFragment extends Fragment {
                  */
                 //proj309-sb-02.misc.iastate.edu:8080
                 String w = "ws://proj309-sb-02.misc.iastate.edu:8080/websocket/" + e1.getText().toString();
+                try {
+                    cc.close();
+                }
+                catch(Exception e){
 
+                }
                 try {
                     Log.d("Socket:", "Trying socket");
                     cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
