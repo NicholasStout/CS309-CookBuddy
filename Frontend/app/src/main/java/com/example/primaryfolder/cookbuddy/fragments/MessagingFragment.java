@@ -96,7 +96,7 @@ public class MessagingFragment extends Fragment {
                             //Log.d("first", "run() returned: " + s);
                             //s=t1.getText().toString();
                             //Log.d("second", "run() returned: " + s);
-                            t1.setText(s + " Server:" + message);
+                            t1.setText(s  +  message + "\n");
                         }
 
                         @Override
@@ -127,7 +127,7 @@ public class MessagingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    cc.send(e2.getText().toString());
+                    cc.send(e1.getText().toString() + ":" + e2.getText().toString());
                 }
                 catch (Exception e)
                 {

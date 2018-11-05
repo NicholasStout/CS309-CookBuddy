@@ -40,7 +40,7 @@ public class WebSocketServer {
         users.put(session.getId(), username);
         
         String message="User: " + username +" Has Joined the Chat";
-        	broadcast(message);
+        	//broadcast(message);
 		
     }
  
@@ -48,9 +48,9 @@ public class WebSocketServer {
     public void onMessage(Session session, String message) throws IOException {
         // Handle new messages
     	logger.info("Entered into Message: Got Message: "+message);
-    	String echo="This is the received Text: "+message;
-    	sendMessageToPArticularUser(session,echo);
-    	//broadcast(message);
+    	String echo=""+message;
+    	//sendMessageToPArticularUser(session,echo);
+    	broadcast(message);
     }
  
     @OnClose
