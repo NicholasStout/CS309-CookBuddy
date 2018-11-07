@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.activities.MainActivity;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
@@ -20,6 +22,8 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static com.example.primaryfolder.cookbuddy.activities.MainActivity.*;
 
 
 public class MessagingFragment extends Fragment {
@@ -33,10 +37,11 @@ public class MessagingFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     private Button  b1,b2;
-    private EditText e1,e2;
+    private EditText e2;
     private TextView t1;
     private WebSocketClient cc;
 
+    String userName = MainActivity.userName;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,6 @@ public class MessagingFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         b1=(Button)view.findViewById(R.id.bt1);
         b2=(Button)view.findViewById(R.id.bt2);
-        e1=(EditText)view.findViewById(R.id.et1);
         e2=(EditText)view.findViewById(R.id.et2);
         t1=(TextView)view.findViewById(R.id.tx1);
 
@@ -68,7 +72,7 @@ public class MessagingFragment extends Fragment {
                  * If running on the emulator, you can use localhost.
                  */
                 //proj309-sb-02.misc.iastate.edu:8080
-                String w = "ws://proj309-sb-02.misc.iastate.edu:8080/websocket/" + e1.getText().toString();
+                String w = "ws://proj309-sb-02.misc.iastate.edu:8080/websocket/" + MainActivity.userName;
                 try {
                     cc.close();
                 }
@@ -117,7 +121,7 @@ public class MessagingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    cc.send(e1.getText().toString() + ":" + e2.getText().toString());
+                    cc.send(userName + ":" + e2.getText().toString());
                 }
                 catch (Exception e)
                 {

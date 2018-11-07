@@ -9,18 +9,10 @@
     <TextView
         android:id="@+id/tx1"
         android:layout_width="403dp"
-        android:layout_height="357dp"
+        android:layout_height="406dp"
         android:text="The Coversation will appear here:\n"
         android:textSize="20dp" />
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:hint="USER ID"
-        android:textSize="20dp"
-        android:id="@+id/et1"
-        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

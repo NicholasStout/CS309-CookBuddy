@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // session manager class
     public SessionManager uSession;
-
+    public static String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         uSession = new SessionManager(getApplicationContext()); // create new session manager
         uSession.checkLogin(); // check to make sure user is logged in
         HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
-        String userName = user.get(SessionManager.KEY_NAME); // the name of the user
+        userName = user.get(SessionManager.KEY_NAME); // the name of the user
         String email = user.get(SessionManager.KEY_EMAIL); // the email of the user
 
         // the toolbar
