@@ -2,6 +2,7 @@ package com.example.primaryfolder.cookbuddy.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,8 @@ public class MessagingFragment extends Fragment {
         b2=(Button)view.findViewById(R.id.bt2);
         e2=(EditText)view.findViewById(R.id.et2);
         t1=(TextView)view.findViewById(R.id.tx1);
+        t1.setMovementMethod(new ScrollingMovementMethod());
+
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override

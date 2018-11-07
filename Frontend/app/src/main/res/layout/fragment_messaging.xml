@@ -11,6 +11,7 @@
         android:layout_width="403dp"
         android:layout_height="406dp"
         android:text="The Coversation will appear here:\n"
+        android:scrollbars="vertical"
         android:textSize="20dp" />
 
     <Button
