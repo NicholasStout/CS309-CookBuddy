@@ -2,8 +2,8 @@ package com.example.primaryfolder.cookbuddy.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +18,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.app.AppController;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,9 +34,11 @@ public class SignInActivity extends AppCompatActivity {
     // Variables for the entered email and password
     EditText enteredUserEmail, enteredUserPassword;
 
-
     // Variable for the sign in button
     Button btnSignIn, btnSignUp;
+
+    // The session manager for user login
+    public SessionManager uSession;
 
     // Server url
     static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080//users/sign_in";
@@ -49,6 +52,9 @@ public class SignInActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.btnGoToUserRegister);
         enteredUserEmail = (EditText) findViewById(R.id.enteredEmailAddress);
         enteredUserPassword = (EditText) findViewById(R.id.enteredPassword);
+
+        uSession = new SessionManager(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "User Login Status: " + uSession.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +75,6 @@ public class SignInActivity extends AppCompatActivity {
                 final ProgressDialog pDialog = new ProgressDialog(SignInActivity.this); // The progress dialog object for this activity
                 pDialog.setMessage("Verifying your information, Please Wait...");
                 pDialog.show();
-
-                // TODO FIND A WAY TO CHECK THE SERVER FOR THE CORRECT LOGIN INFO
 
                 // String for the entered info
                 final String enteredEmail, enteredPassword;
@@ -106,8 +110,17 @@ public class SignInActivity extends AppCompatActivity {
                                     pDialog.hide();
                                     try {
                                         if (response.getInt("Error") == 0) {
-                                            Intent i = new Intent(SignInActivity.this, ViewRecipes.class);
-                                            startActivity(i);
+                                            try {
+                                                // Create user login session
+                                                uSession.createLoginSession(response.get("name").toString(), enteredEmail);
+
+                                                Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                                                startActivity(i);
+                                            }
+
+                                            catch (JSONException e) {
+                                                Toast.makeText(SignInActivity.this, "Error: Something went wrong!", Toast.LENGTH_SHORT).show();
+                                            }
                                         } else {
                                             Toast.makeText(SignInActivity.this, "Error: User name or password incorrect", Toast.LENGTH_SHORT).show();
                                         }

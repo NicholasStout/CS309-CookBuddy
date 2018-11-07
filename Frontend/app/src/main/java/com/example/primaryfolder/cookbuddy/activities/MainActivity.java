@@ -24,6 +24,9 @@ import com.example.primaryfolder.cookbuddy.fragments.MessagingFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ProfileFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ViewRecipesFragment;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
+
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,12 +34,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // instantiate variables
     private View navHeader;
 
+    // session manager class
+    public SessionManager uSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO Add global variable for sharedpreferences
+        // session class instance
+        uSession = new SessionManager(getApplicationContext()); // create new session manager
+        uSession.checkLogin(); // check to make sure user is logged in
+        HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
+        String userName = user.get(SessionManager.KEY_NAME); // the name of the user
+        String email = user.get(SessionManager.KEY_EMAIL); // the email of the user
 
         // the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

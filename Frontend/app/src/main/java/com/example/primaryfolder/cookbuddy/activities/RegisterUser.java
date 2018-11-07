@@ -1,25 +1,24 @@
 package com.example.primaryfolder.cookbuddy.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.app.AppController;
-import com.android.volley.Request;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +37,9 @@ public class RegisterUser extends AppCompatActivity {
     // Values for the user fields
     EditText uName, uEmail, uPassword, uPasswordConfirm;
 
+    // The user session manager
+    public SessionManager uSession;
+
     // The url for the server
     static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/users/";
 
@@ -55,6 +57,8 @@ public class RegisterUser extends AppCompatActivity {
         uPassword = (EditText) findViewById(R.id.userPassword); // Variable for the password entered in field
         uPasswordConfirm = (EditText) findViewById(R.id.userPasswordConfirm); // Variable for the password in field
 
+        uSession = new SessionManager(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "User Login Status: " + uSession.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         // The "Sign In" button on this activity that will redirect to the existing user sign in activity
         btnToSignInPage.setOnClickListener(new View.OnClickListener() {
@@ -147,10 +151,12 @@ public class RegisterUser extends AppCompatActivity {
                                         err = 1;
                                     }
                                     if (err == 0) {
+
+                                        // Create user login session
+                                        uSession.createLoginSession(userName, userEmail);
+
                                         Intent j = new Intent(RegisterUser.this, MainActivity.class);
                                         startActivity(j);
-
-                                        // TODO Save login information to shared preference
 
                                     } else {
                                         Toast.makeText(RegisterUser.this, "Err" +

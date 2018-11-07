@@ -2,36 +2,26 @@ package com.example.primaryfolder.cookbuddy.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.primaryfolder.cookbuddy.R;
-import com.example.primaryfolder.cookbuddy.net_utils.Const;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.net_utils.Const;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MessagingFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MessagingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MessagingFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
