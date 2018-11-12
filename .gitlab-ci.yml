@@ -23,7 +23,7 @@ maven-build:
     - shell
  
   script:
-    - cd Spring
+    - cd Backend/demo2_backend
     - mvn package -B 
  
 # PART 3: Instructions to test the spring part
@@ -36,11 +36,11 @@ maven-test:
   tags:
     - shell
   script:
-    - cd Spring
+    - cd Backend/demo2_backend
     - mvn test
   artifacts:
     paths:
-    - Spring/target/*.jar
+    - Backend/demo2_backend/target/*.jar
  
 # PART 4: Instructions to deploy the spring part
 
