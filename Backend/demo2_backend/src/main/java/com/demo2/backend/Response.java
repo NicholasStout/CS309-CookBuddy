@@ -25,6 +25,7 @@ public class Response {
 		Map<String, String> ret = new HashMap<String, String>();
 		ret.put("Error", "0");
 		ret.put("name", u.getName());
+		ret.put("email", u.getName());
 		ret.put("userId", new Integer(u.getID()).toString());
 		return ret;
 	}
