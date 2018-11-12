@@ -28,8 +28,7 @@ maven-build:
  
 # PART 3: Instructions to test the spring part
 
-# artifacts are created when job executes successfully, and can be manually
-downloaded from GitLab GUI.
+# artifacts are created when job executes successfully, and can be manually downloaded from GitLab GUI.
 # artifacts are not mandatory, but it is good practice, in case auto deploy fails, you
 # can manually download the jar.
 maven-test:
