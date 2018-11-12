@@ -39,7 +39,7 @@ maven-test:
     - cd Spring
     - mvn test
   artifacts:
-  paths:
+    paths:
     - Spring/target/*.jar
  
 # PART 4: Instructions to deploy the spring part
