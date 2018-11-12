@@ -55,7 +55,7 @@ autoDeploy:
   script:
     - cd Backend/demo2_backend
     - mvn package
-    - sudo mv target/*.jar /target/web-demo.jar
+    - sudo mv target/*.jar /target/demo2_backend-0.0.1-SNAPSHOT.jar.jar
     - sudo systemctl stop systemd-web-demo
     - sudo systemctl start systemd-web-demo
  
