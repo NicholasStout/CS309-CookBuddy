@@ -78,7 +78,7 @@ android-build:
     - cd Android_test
     - ./gradlew assemble
   artifacts:
-  paths:
+    paths:
     - Android_test/app/build/outputs/
 
 # PART 6: Instructions to test the android part
