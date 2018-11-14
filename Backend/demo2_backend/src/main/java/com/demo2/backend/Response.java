@@ -48,4 +48,13 @@ public class Response {
 		ret.put("amount", r.getAmount());
 		return ret;
 	}
+	
+	public static Map<String, String> item (Item i) {
+		Map<String, String> ret = new HashMap<String, String>();
+		ret.put("Error", "0");
+		ret.put("itemId",  new Integer(i.getId()).toString());
+		ret.put("itemName", i.getName());
+		ret.put("notes", i.getNotes());
+		return ret;
+	}
 }
