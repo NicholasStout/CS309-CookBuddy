@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new HomeFragment();
             displaySelectedFragment(fragment);
         } else if (id == R.id.nav_view_recipes) {
-            fragment = new ViewRecipesFragment();
+            fragment = (Fragment) new ViewRecipesFragment();
             displaySelectedFragment(fragment);
 
         } else if (id == R.id.nav_messaging) {
