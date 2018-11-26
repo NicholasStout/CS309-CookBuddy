@@ -111,6 +111,7 @@ public class ViewRecipesFragment  extends Fragment {
 
         adapter = new CustomAdapter(data);
         recyclerView.setAdapter(adapter);
+
     }
 
 
@@ -124,7 +125,6 @@ public class ViewRecipesFragment  extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(this.context, "Success", Toast.LENGTH_LONG).show();
         }
 
     }
