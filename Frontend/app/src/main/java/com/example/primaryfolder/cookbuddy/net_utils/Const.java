@@ -12,6 +12,8 @@ public class Const {
     public final static String BACKGROUND_URL = "http://www.androiddeft.com/wp-content/uploads/2017/11/nav_bg.jpg";
     public static final String TAG_HOME = "Home";
     public static final String TAG_VIEW_RECIPES = "View Recipes";
+    public static final String TAG_SHOPPING_LIST = "Shopping List";
+    public static final String TAG_NEARBY_STORES = "Nearby Stores";
     public static final String TAG_MESSAGING = "Messaging";
     public static final String TAG_PROFILE = "Profile";
     public final static String SITE_URL = "http://androiddeft.com";
