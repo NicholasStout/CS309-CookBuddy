@@ -21,7 +21,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.fragments.HomeFragment;
 import com.example.primaryfolder.cookbuddy.fragments.MessagingFragment;
+import com.example.primaryfolder.cookbuddy.fragments.NearbyStoresFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ProfileFragment;
+import com.example.primaryfolder.cookbuddy.fragments.ShoppingListFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ViewRecipesFragment;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
 import com.example.primaryfolder.cookbuddy.other.SessionManager;
@@ -131,17 +133,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_home) { // Home
             fragment = new HomeFragment();
             displaySelectedFragment(fragment);
-        } else if (id == R.id.nav_view_recipes) {
+        } else if (id == R.id.nav_view_recipes) { // View Recipes
             fragment = (Fragment) new ViewRecipesFragment();
             displaySelectedFragment(fragment);
-        } else if (id == R.id.nav_messaging) {
+        }
+        else if (id == R.id.nav_shopping_list) { // Shopping List
+            fragment = (Fragment) new ShoppingListFragment();
+            displaySelectedFragment(fragment);
+        } else if (id == R.id.nav_nearby_stores) { // Nearby Stores
+            fragment = (Fragment) new NearbyStoresFragment();
+            displaySelectedFragment(fragment);
+        } else if (id == R.id.nav_messaging) { // Messaging
             fragment = new MessagingFragment();
             displaySelectedFragment(fragment);
-
-        } else if (id == R.id.nav_profile) {
+        } else if (id == R.id.nav_profile) { // Profile
             fragment = new ProfileFragment();
             displaySelectedFragment(fragment);
 

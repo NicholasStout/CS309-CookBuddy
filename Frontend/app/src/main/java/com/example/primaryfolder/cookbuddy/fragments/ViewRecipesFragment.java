@@ -1,19 +1,14 @@
 package com.example.primaryfolder.cookbuddy.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,8 +19,8 @@ import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.activities.ViewRecipes;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
-import com.example.primaryfolder.cookbuddy.other.*;
-
+import com.example.primaryfolder.cookbuddy.other.CustomAdapter;
+import com.example.primaryfolder.cookbuddy.other.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +44,7 @@ public class ViewRecipesFragment  extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(Const.TAG_PROFILE);
+        getActivity().setTitle(Const.TAG_VIEW_RECIPES);
 
 
     }
