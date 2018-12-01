@@ -25,8 +25,11 @@ public class RecipeIngredientController {
 	@Autowired
 	private RecipeRepository R_Repo;
 	
-	@PostMapping(path="/recipesIng/{recipe_id}/add", consumes= "application/json")
-	public @ResponseBody Map<String, String> addNewIngredient (@PathVariable (value = "recipe_id") int recipeID, @RequestBody RecipeIngredient n) {
+	@Autowired
+	private UserRepository U_Repo;
+	
+	@PostMapping(path="/recipesIng/{user_id}/{recipe_id}/add", consumes= "application/json")
+	public @ResponseBody Map<String, String> addNewIngredient (@PathVariable (value = "user_id") int userID, @PathVariable (value = "recipe_id") int recipeID, @RequestBody RecipeIngredient n) {
 		Optional<Recipe> r = R_Repo.findById(recipeID);
 		if (r.isPresent()) {
 			n.setRecipe(r.get());
@@ -39,6 +42,11 @@ public class RecipeIngredientController {
 	@PostMapping(path="/recipesIng/{recipe_id}/addall", consumes= "application/json")
 	public @ResponseBody Map<String, String> addNewIngredients (@PathVariable (value = "recipe_id") int recipeID, @RequestBody List<RecipeIngredient> n) {
 		Optional<Recipe> r = R_Repo.findById(recipeID);
+		if(!r.isPresent())
+		{
+			return Response.failed();
+		}
+		
 		ListIterator<RecipeIngredient> iter = n.listIterator();
 		if (!iter.hasNext()) {
 			return Response.failed();

@@ -24,9 +24,8 @@ import org.springframework.lang.NonNull;
  */
 public class User {
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	@NonNull
-    private int id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id=-1;
 	
 	private String name;
 	private String email;

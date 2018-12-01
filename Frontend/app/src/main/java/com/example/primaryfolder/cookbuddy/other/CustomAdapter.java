@@ -39,7 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment rFragment = RecipeFragment.newInstance(r);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.card_view, rFragment).addToBackStack(null).commit();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, rFragment).addToBackStack(null).commit();
 
 
                 }

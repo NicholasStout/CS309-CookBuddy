@@ -32,10 +32,12 @@ public class RecipeIngredient {
 	private String name;	
 	
 	private String amount;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private Recipe recipe;
+	
+	private int user_id = 0;
 	
 	public void setName (String n) {
 		name = n;

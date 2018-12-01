@@ -9,8 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.primaryfolder.cookbuddy.R;
+import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.other.Recipe;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +38,14 @@ public class RecipeFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private Recipe r;
-    private TextView text;
+    private TextView title;
+    private TextView ingred;
+    private TextView desc;
+    private String ingList;
+    private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipesIng/{recipe_id}/all";
+    private String TAG = RecipeFragment.class.getSimpleName();
+
+
 
 
     public RecipeFragment() {
@@ -57,15 +76,48 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_recipe, container, false);
     }
 
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        text = getView().findViewById(R.id.recipeDesc);
+        title = getView().findViewById(R.id.recipeTitle);
+        title.setText(r.getRecipeName());
 
-        text.setText(buildString());
+        ingList = "";
+        JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        VolleyLog.d(TAG, response.toString());
+
+                        try{
+
+                            for(int i = 0; i < response.length(); i++){
+                                //get current Json object
+                                JSONObject ing = response.getJSONObject(i);
+                                ingList = ingList + ing.getString("amount") + ing.getString("name")+"\n";
+
+                            }
+                            ingred = getView().findViewById(R.id.recipeIngredients);
+                            ingred.setText(ingList);
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error){
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(jsonReq);
+
+        desc = getView().findViewById(R.id.recipeDesc);
+        desc.setText(r.getInstructions());
     }
 
     private String buildString () {
