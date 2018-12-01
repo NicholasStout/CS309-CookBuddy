@@ -42,5 +42,15 @@
     <!--View Recipes Strings -->
     <string name="recipeName">Insert content here</string>
 
+    <!-- Add Recipe Strings -->
+    <string name="addRecipeName">Enter Name of Recipe:</string>
+    <string name="addRecipeIngredients">Enter Recipe Ingredients:</string>
+    <string name="addRecipeInstructions">Enter Cooking Instructions:</string>
+    <string name="hintRecipeName">e.g. Fettuccine Alfredo Pasta</string>
+    <string name="hintRecipeIngredients">e.g. 2 cups heavy cream, ground black pepper</string>
+    <string name="hintRecipeInstructions">e.g. 1. Enter first step 2. Enter second step 3. Enter third step 4. Enter fourth step</string>
+    <string name="btnAddRecipe">Add Recipe</string>
+
+
 
 </resources>

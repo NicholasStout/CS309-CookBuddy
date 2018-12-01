@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/imageplaceholder" />
+        android:src="@mipmap/ic_launcher_round" />
 
     <!-- The name of the user -->
     <EditText
