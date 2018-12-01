@@ -83,7 +83,7 @@ public class RecipeFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        title = getView().findViewById(R.id.recipeTitle);
+        title = view.findViewById(R.id.recipeTitle);
         title.setText(r.getRecipeName());
 
         ingList = "";
@@ -101,11 +101,11 @@ public class RecipeFragment extends Fragment {
                                 ingList = ingList + ing.getString("amount") + ing.getString("name")+"\n";
 
                             }
-                            ingred = getView().findViewById(R.id.recipeIngredients);
-                            ingred.setText(ingList);
+                            buildIng(view);
 
                         }catch (JSONException e){
                             e.printStackTrace();
+                            buildIng(view);
                         }
                     }
                 }, new Response.ErrorListener(){
@@ -116,13 +116,19 @@ public class RecipeFragment extends Fragment {
         });
         AppController.getInstance().addToRequestQueue(jsonReq);
 
-        desc = getView().findViewById(R.id.recipeDesc);
+
+        desc = view.findViewById(R.id.recipeDesc);
         desc.setText(r.getInstructions());
     }
 
-    private String buildString () {
-        String s = r.getRecipeName();
-        return s;
+    private void buildIng (View view) {
+        ingred = view.findViewById(R.id.recipeIngredients);
+        if (ingList.length() == 0) {
+            ingred.setText("None");
+        }
+        else {
+            ingred.setText("This works atleast");
+        }
     }
 
 
