@@ -1,6 +1,7 @@
 package com.example.primaryfolder.cookbuddy.activities;
 
 import android.content.Intent;
+import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // session manager class
     public SessionManager uSession;
     public static String userName;
+    public static int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
         userName = user.get(SessionManager.KEY_NAME); // the name of the user
         String email = user.get(SessionManager.KEY_EMAIL); // the email of the user
+        userID = Integer.parseInt(user.get(SessionManager.KEY_ID));
 
         // the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

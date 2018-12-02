@@ -42,6 +42,7 @@ public class RegisterUser extends AppCompatActivity {
 
     // The url for the server
     static final String SERVER_URL = "http://proj309-sb-02.misc.iastate.edu:8080/users/";
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,13 +148,13 @@ public class RegisterUser extends AppCompatActivity {
                                     int err;
                                     try {
                                         err = response.getInt("Error");
+                                        userID = response.getInt("userId");
                                     } catch (JSONException e) {
                                         err = 1;
                                     }
                                     if (err == 0) {
-
                                         // Create user login session
-                                        uSession.createLoginSession(userName, userEmail);
+                                        uSession.createLoginSession(userName, userEmail, userID);
 
                                         Intent j = new Intent(RegisterUser.this, MainActivity.class);
                                         startActivity(j);

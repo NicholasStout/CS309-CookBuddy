@@ -108,18 +108,20 @@ public class SignInActivity extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Log.d(TAG, response.toString());
                                     pDialog.hide();
+                                    int id = 0;
                                     try {
                                         if (response.getInt("Error") == 0) {
                                             try {
                                                 // Create user login session
-                                                uSession.createLoginSession(response.get("name").toString(), enteredEmail);
+                                                id = Integer.parseInt((String) response.get("userId"));
+                                                uSession.createLoginSession(response.get("name").toString(), enteredEmail, id);
 
                                                 Intent i = new Intent(SignInActivity.this, MainActivity.class);
                                                 startActivity(i);
                                             }
 
                                             catch (JSONException e) {
-                                                Toast.makeText(SignInActivity.this, "Error: Something went wrong!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SignInActivity.this, "Error: Something went wrong!"+ id, Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
                                             Toast.makeText(SignInActivity.this, "Error: User name or password incorrect", Toast.LENGTH_SHORT).show();

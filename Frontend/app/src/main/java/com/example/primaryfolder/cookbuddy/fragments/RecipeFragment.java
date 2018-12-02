@@ -42,7 +42,7 @@ public class RecipeFragment extends Fragment {
     private TextView ingred;
     private TextView desc;
     private String ingList;
-    private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipesIng/{recipe_id}/all";
+    private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipesIng/";
     private String TAG = RecipeFragment.class.getSimpleName();
 
 
@@ -87,7 +87,7 @@ public class RecipeFragment extends Fragment {
         title.setText(r.getRecipeName());
 
         ingList = "";
-        JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url, null,
+        JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url+r.getRecipeId()+"/all", null,
                 new Response.Listener<JSONArray>(){
                     @Override
                     public void onResponse(JSONArray response){
@@ -98,14 +98,14 @@ public class RecipeFragment extends Fragment {
                             for(int i = 0; i < response.length(); i++){
                                 //get current Json object
                                 JSONObject ing = response.getJSONObject(i);
-                                ingList = ingList + ing.getString("amount") + ing.getString("name")+"\n";
+                                ingList = ingList + ing.getString("ingredientName")+"\n";
 
                             }
-                            buildIng(view);
+                            buildIng(view, ingList);
 
                         }catch (JSONException e){
                             e.printStackTrace();
-                            buildIng(view);
+                            buildIng(view, response.toString());
                         }
                     }
                 }, new Response.ErrorListener(){
@@ -121,13 +121,10 @@ public class RecipeFragment extends Fragment {
         desc.setText(r.getInstructions());
     }
 
-    private void buildIng (View view) {
+    private void buildIng (View view, String s) {
         ingred = view.findViewById(R.id.recipeIngredients);
-        if (ingList.length() == 0) {
-            ingred.setText("None");
-        }
-        else {
-            ingred.setText("This works atleast");
+        if (s.length() != 0) {
+            ingred.setText(s);
         }
     }
 
