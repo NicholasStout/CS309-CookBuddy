@@ -96,6 +96,10 @@ public class AddRecipe extends AppCompatActivity {
                     }
                 };
                 AppController.getInstance().addToRequestQueue(jsonReq);
+
+                // redirect to home activity
+                Intent i = new Intent(AddRecipe.this, MainActivity.class);
+                startActivity(i);
             }
         });
 
