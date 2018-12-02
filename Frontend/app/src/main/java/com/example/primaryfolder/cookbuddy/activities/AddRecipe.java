@@ -151,6 +151,7 @@ public class AddRecipe extends AppCompatActivity {
                         return headers;
                     }
                 };
+<<<<<<< HEAD
                 AppController.getInstance().addToRequestQueue(jsonReq2);*/
 
 

@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context=".activities.AddRecipe">
 
+    <!-- TODO: Add functionality for scrolling-->
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="200dp"
