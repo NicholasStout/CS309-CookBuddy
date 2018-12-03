@@ -114,6 +114,7 @@ public class SignInActivity extends AppCompatActivity {
                                             try {
                                                 // Create user login session
                                                 id = Integer.parseInt((String) response.get("userId"));
+
                                                 uSession.createLoginSession(response.get("name").toString(), enteredEmail, id);
 
                                                 Intent i = new Intent(SignInActivity.this, MainActivity.class);

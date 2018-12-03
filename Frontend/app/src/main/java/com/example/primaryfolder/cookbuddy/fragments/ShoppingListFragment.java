@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -21,13 +22,14 @@ import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.net_utils.Const;
 import com.example.primaryfolder.cookbuddy.other.CustomAdapter;
 import com.example.primaryfolder.cookbuddy.other.Recipe;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class ShoppingListFragment  extends Fragment {
@@ -39,7 +41,8 @@ public class ShoppingListFragment  extends Fragment {
     private static ArrayList<Recipe> data;
     public static View.OnClickListener myOnClickListener;
     private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/all";
-    //public SessionManager uSession;
+    public SessionManager uSession;
+    private TextView slTextView;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -53,38 +56,17 @@ public class ShoppingListFragment  extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
 
         // Session class instance
-        //uSession = new SessionManager(getContext());
+        uSession = new SessionManager(getContext());
         super.onCreate(savedInstanceState);
 
-        data = new ArrayList<Recipe>();
-        JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>(){
-                    @Override
-                    public void onResponse(JSONArray response){
-                        VolleyLog.d(TAG, response.toString());
+        slTextView = (TextView) view.findViewById(R.id.textViewShoppingList);
 
-                        try{
+        uSession.checkLogin(); // check to make sure user is logged in
+        HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
 
-                            for(int i = 0; i < response.length(); i++){
-                                //get current Json object
-                                JSONObject recipe = response.getJSONObject(i);
-                                data.add(new Recipe(recipe));
-                            }
-                            populate(view);
+        String shoppingList = user.get(SessionManager.KEY_SHOPPING_LIST);
+        slTextView.setText(shoppingList);
 
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error){
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonReq);
-
-        myOnClickListener = new MyOnClickListener(this.getContext());
 
     }
 

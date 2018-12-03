@@ -84,7 +84,7 @@ public class RegisterUser extends AppCompatActivity {
                  * String format of entered information
                  *
                  */
-                final String userName, userEmail, userPassword;
+                final String userName, userEmail, userPassword, userShoppingList;
 
                 // Check to see if there is a name entered
                 if (uName.getText().toString().equals("")) {
@@ -121,6 +121,7 @@ public class RegisterUser extends AppCompatActivity {
                     userName = uName.getText().toString();
                     userEmail = uEmail.getText().toString();
                     userPassword = uPassword.getText().toString();
+                    userShoppingList = "";
 
                     /*
                      *
@@ -155,6 +156,7 @@ public class RegisterUser extends AppCompatActivity {
                                     if (err == 0) {
                                         // Create user login session
                                         uSession.createLoginSession(userName, userEmail, userID);
+                                        uSession.saveUserShoppingList(userShoppingList);
 
                                         Intent j = new Intent(RegisterUser.this, MainActivity.class);
                                         startActivity(j);

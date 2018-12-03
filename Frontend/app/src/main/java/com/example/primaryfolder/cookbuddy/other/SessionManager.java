@@ -35,6 +35,9 @@ public class SessionManager {
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
 
+    // Shopping list
+    public static final String KEY_SHOPPING_LIST = "shoppinglist";
+
     public static final String KEY_ID = "id";
 
     // Constructor
@@ -60,6 +63,11 @@ public class SessionManager {
         editor.putInt(KEY_ID, userID);
 
         // commit changes
+        editor.commit();
+    }
+
+    public void saveUserShoppingList(String shoppingList){
+        editor.putString(KEY_SHOPPING_LIST, shoppingList);
         editor.commit();
     }
 
@@ -97,6 +105,9 @@ public class SessionManager {
 
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+        // user shopping list
+        user.put(KEY_SHOPPING_LIST, pref.getString(KEY_SHOPPING_LIST, null));
 
         user.put(KEY_ID, ""+pref.getInt(KEY_ID, -1));
 

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,12 +18,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.app.AppController;
 import com.example.primaryfolder.cookbuddy.other.Recipe;
+import com.example.primaryfolder.cookbuddy.other.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,10 +40,12 @@ public class RecipeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
+    public SessionManager uSession;
     private Recipe r;
     private TextView title;
     private TextView ingred;
     private TextView desc;
+    private Button btnAddToSL;
     private String ingList;
     private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipesIng/";
     private String TAG = RecipeFragment.class.getSimpleName();
@@ -67,9 +72,7 @@ public class RecipeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        }
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
 
     @Override
@@ -85,6 +88,7 @@ public class RecipeFragment extends Fragment {
 
         title = view.findViewById(R.id.recipeTitle);
         title.setText(r.getRecipeName());
+        btnAddToSL = view.findViewById(R.id.buttonAddToSL);
 
         ingList = "";
         JsonArrayRequest jsonReq = new JsonArrayRequest(Request.Method.GET, url+r.getRecipeId()+"/all", null,
@@ -119,6 +123,23 @@ public class RecipeFragment extends Fragment {
 
         desc = view.findViewById(R.id.recipeDesc);
         desc.append("\n" + r.getInstructions());
+
+
+
+        btnAddToSL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //create a user session and checked that they're logged in
+                uSession = new SessionManager(getContext());
+                uSession.checkLogin();
+
+                //get the current shopping list, add to it, then resave it
+                HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
+                String shoppingList = user.get(SessionManager.KEY_SHOPPING_LIST);
+                shoppingList += "\n" + ingList;
+                uSession.saveUserShoppingList(shoppingList);
+            }
+        });
     }
 
     private void buildIng (View view, String s) {
@@ -130,6 +151,8 @@ public class RecipeFragment extends Fragment {
 
 
     public void setR(Recipe res) { r = res; }
+
+
 
 
 }
