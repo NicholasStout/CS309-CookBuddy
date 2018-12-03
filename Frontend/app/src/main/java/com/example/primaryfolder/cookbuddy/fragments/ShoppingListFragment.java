@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -42,7 +44,9 @@ public class ShoppingListFragment  extends Fragment {
     public static View.OnClickListener myOnClickListener;
     private String url = "http://proj309-sb-02.misc.iastate.edu:8080/recipes/all";
     public SessionManager uSession;
-    private TextView slTextView;
+
+    private Button btnGetSL, btnSaveSL, btnResetSL;
+    private EditText slTextView;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -59,13 +63,38 @@ public class ShoppingListFragment  extends Fragment {
         uSession = new SessionManager(getContext());
         super.onCreate(savedInstanceState);
 
-        slTextView = (TextView) view.findViewById(R.id.textViewShoppingList);
+        slTextView = (EditText) view.findViewById(R.id.editTextSL);
+        btnGetSL = (Button) view.findViewById(R.id.buttonGetSL);
+        btnSaveSL = (Button) view.findViewById(R.id.buttonSaveSL);
+        btnResetSL = (Button) view.findViewById(R.id.buttonResetSL);
 
         uSession.checkLogin(); // check to make sure user is logged in
-        HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
+        final HashMap<String, String> user = uSession.getUserDetails(); // get user data from session
 
-        String shoppingList = user.get(SessionManager.KEY_SHOPPING_LIST);
-        slTextView.setText(shoppingList);
+        btnGetSL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String shoppingList = user.get(SessionManager.KEY_SHOPPING_LIST);
+                slTextView.setText(shoppingList);
+            }
+        });
+
+        btnSaveSL.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String shoppingList = slTextView.getText().toString();
+                uSession.saveUserShoppingList(shoppingList);
+            }
+        });
+
+        btnResetSL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uSession.saveUserShoppingList("");
+                slTextView.setText("");
+            }
+        });
+
 
 
     }
