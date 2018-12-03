@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.primaryfolder.cookbuddy.R;
 import com.example.primaryfolder.cookbuddy.fragments.HomeFragment;
+import com.example.primaryfolder.cookbuddy.fragments.MappingFragment;
 import com.example.primaryfolder.cookbuddy.fragments.MessagingFragment;
 import com.example.primaryfolder.cookbuddy.fragments.NearbyStoresFragment;
 import com.example.primaryfolder.cookbuddy.fragments.ProfileFragment;
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = (Fragment) new ShoppingListFragment();
             displaySelectedFragment(fragment);
         } else if (id == R.id.nav_nearby_stores) { // Nearby Stores
-            fragment = (Fragment) new NearbyStoresFragment();
+            fragment = (Fragment) new MappingFragment();
             displaySelectedFragment(fragment);
         } else if (id == R.id.nav_messaging) { // Messaging
             fragment = new MessagingFragment();

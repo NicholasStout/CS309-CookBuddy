@@ -41,6 +41,7 @@
 
     <!--View Recipes Strings -->
     <string name="recipeName">Insert content here</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- Add Recipe Strings -->
     <string name="addRecipeName">Enter Name of Recipe:</string>
