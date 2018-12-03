@@ -118,13 +118,13 @@ public class RecipeFragment extends Fragment {
 
 
         desc = view.findViewById(R.id.recipeDesc);
-        desc.setText(r.getInstructions());
+        desc.append("\n" + r.getInstructions());
     }
 
     private void buildIng (View view, String s) {
         ingred = view.findViewById(R.id.recipeIngredients);
         if (s.length() != 0) {
-            ingred.setText(s);
+            ingred.append("\n" + s);
         }
     }
 

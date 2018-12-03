@@ -27,9 +27,9 @@
 
             <TextView
                 android:id="@+id/recipeIngredients"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="None"
+                android:text="Ingredients:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="20sp" />
 
@@ -37,9 +37,15 @@
                 android:id="@+id/recipeDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Steps:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add recipe to shopping list" />
 
         </LinearLayout>
     </ScrollView>
