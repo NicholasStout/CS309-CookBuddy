@@ -147,7 +147,7 @@ public class MappingFragment extends Fragment implements OnMapReadyCallback,
       googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
       googlePlaceUrl.append("&type=supermarket");
       googlePlaceUrl.append("&sensor=true");
-      googlePlaceUrl.append("&key=AIzaSyAYpmHoc7GWuethJ39agrMaSBWxmphIQNY");
+      googlePlaceUrl.append("&key=Nope");
               return googlePlaceUrl.toString();
 
   }
